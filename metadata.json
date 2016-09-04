@@ -1,0 +1,16 @@
+{
+  "description": "Simply add your username to topbar panel aggregate menu",
+  "uuid": "add-username-toppanel@brendaw.com",
+  "name": "Add Username to Top Panel",
+  "original-authors": [
+      "williambrendaw@gmail.com"
+    ],
+  "shell-version": [
+      "3.12",
+      "3.14",
+      "3.16",
+      "3.18"
+   ],
+   "url": "https://github.com/brendaw/add-username-toppanel",
+   "version": 1
+}
