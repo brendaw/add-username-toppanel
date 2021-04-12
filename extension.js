@@ -1,10 +1,12 @@
 /*
   Add Username to Top Panel GNOME extension
-  Created by William Brendaw (williambrendaw@gmail.com)
-
+  Orginal Created by William Brendaw (williambrendaw@gmail.com)
   Inspired from Add Username to Top Panel (https://extensions.gnome.org/extension/813/add-user-and-host-name-to-panel/)
 
   Hack it!
+
+  Gnome 40 port by Jakub Kołakowski (jakubkolakowski6@linux.pl)
+
 */
 const Clutter = imports.gi.Clutter;
 const St = imports.gi.St;
