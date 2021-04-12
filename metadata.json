@@ -1,5 +1,5 @@
 {
-  "description": "Simply add your username to topbar panel aggregate menu, gnome 40 port fork",
+  "description": "Simply add your username to topbar panel aggregate menu",
   "uuid": "add-username-toppanel@brendaw.com",
   "name": "Add Username to Top Panel",
   "original-authors": [
