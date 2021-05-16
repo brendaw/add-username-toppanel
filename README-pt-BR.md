@@ -18,15 +18,20 @@ Esta extensão suporta as versões 3.12 até a 40.1 do GNOME Shell.
 
 Dessa forma é mais complicado. Primeiro, vá até a pasta do repositório no terminal. Depois, você precisa rodar o comando do gnome-extensions para criar a base da extensão dentro da sua máquina:
 
-`$ gnome-extensions create --name="Add Username to Top Panel" --description="Simply add your username to topbar panel aggregate menu" --uuid="add-username-toppanel@brendaw.com"`
-
+``` bash
+$ gnome-extensions create --name="Add Username to Top Panel" --description="Simply add your username to topbar panel aggregate menu" --uuid="add-username-toppanel@brendaw.com"
+```
 Após esse comando, copie todos os arquivos da extensão para a pasta criada a partir do último comando:
 
-`$ cp metadata.json extension.js stylesheet.css ~/.local/share/gnome-shell/extensions/add-username-toppanel@brendaw.com`
+``` bash
+$ cp metadata.json extension.js stylesheet.css ~/.local/share/gnome-shell/extensions/add-username-toppanel@brendaw.com
+```
 
 Maravilha. Agora você precisa ativar a extensão no GNOME Shell. Para fazer isso, rode o comando abaixo:
 
-`gnome-extensions enable add-username-toppanel@brendaw.com`
+``` bash
+$ gnome-extensions enable add-username-toppanel@brendaw.com
+```
 
 "Legal, Will, mas a extensão não está aparecendo"
 
