@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is inspired on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres (in parts) to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4](https://github.com/brendaw/add-username-toppanel/releases/tag/v1.4) - 2021-11-10
+
+### Added
+
+- Added support to GNOME Shell version 41 (thanks, [@SKyletoft](https://github.com/SKyletoft))
+
 ## [1.3](https://github.com/brendaw/add-username-toppanel/releases/tag/v1.3) - 2021-05-16
 
 ### Added
