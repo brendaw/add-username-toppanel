@@ -14,7 +14,7 @@ And is simple as that.
 
 ## Support
 
-This extension supports GNOME Shell versions from 3.12 to 40.1.
+This extension supports GNOME Shell versions from 3.12 to 42
 
 ## How to build from source and manually install
 
