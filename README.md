@@ -46,6 +46,10 @@ And that's it.
 
 You may contribute in several ways like creating new features, fixing bugs, improving documentation and examples or translating any document here to your language. [Issues](https://github.com/brendaw/add-username-toppanel/issues) and [Pull Requests](https://github.com/brendaw/add-username-toppanel/pulls) sections are waiting for your contribution.
 
+## Contributors
+
+See on [AUTHORS](AUTHORS.md) file the amazing contributors' name of this project.
+
 ## License
 
-[MIT](LICENSE) - William Brendaw - 2016-2022
+[MIT](LICENSE) - William Brendaw and the contributors - 2016-2022

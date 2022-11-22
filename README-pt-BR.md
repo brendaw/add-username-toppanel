@@ -43,6 +43,10 @@ E é isso.
 
 Você pode contribuir de várias maneiras: criando novas funcionalidades, corrigindo eventuais bugs, melhorando a documentação e os exemplos ou traduzindo a documentação para a sua língua. As seções de [Issues](https://github.com/brendaw/add-username-toppanel/issues) e [Pull Requests](https://github.com/brendaw/add-username-toppanel/pulls) estão esperando a sua contribuição.
 
+## Contribuidores
+
+Veja no arquivo [AUTHORS](AUTHORS.md) para a lista de nomes dos incríveis contribuidores deste projeto.
+
 ## Licença
 
-[MIT](LICENSE) - William Brendaw - 2016-2022
+[MIT](LICENSE) - William Brendaw e os contribuidores - 2016-2022
