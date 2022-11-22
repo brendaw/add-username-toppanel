@@ -1,6 +1,6 @@
 # Add Username to Top Panel
 
-![add-username-to-toppanel](https://extensions.gnome.org/extension-data/screenshots/screenshot_1108.png)
+![add-username-to-toppanel](https://extensions.gnome.org/extension-data/screenshots/screenshot_1108_zJTOY5M.png)
 
 _Leia isso em [Português](README-pt-BR.md)._
 
