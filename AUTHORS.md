@@ -18,5 +18,4 @@ William Brendaw (brendaw)
 Joshua Huber (Josholith)
 Rúben Carneiro (rubencarneiro)
 Samuel Kyletoft (SKyletoft)
-
 ```
