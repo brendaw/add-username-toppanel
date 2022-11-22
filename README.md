@@ -4,7 +4,7 @@
 
 _Leia isso em [Português](README-pt-BR.md)._
 
-Simply add your username to topbar panel aggregate menu in GNOME Shell.
+Simply add your username to topbar panel quick settings menu in GNOME Shell.
 
 ### How to install
 
@@ -14,14 +14,14 @@ And is simple as that.
 
 ## Support
 
-This extension supports GNOME Shell versions from 3.12 to 42
+This extension supports GNOME Shell versions from 3.12 to 43
 
 ## How to build from source and manually install
 
 This way is more trick. First of all, move yourself inside the repository folder. After this, you need to run the gnome-extensions command to create the extention's boilerplate inside your machine:
 
 ``` bash
-$ gnome-extensions create --name="Add Username to Top Panel" --description="Simply add your username to topbar panel aggregate menu" --uuid="add-username-toppanel@brendaw.com"
+$ gnome-extensions create --name="Add Username to Top Panel" --description="Simply add your username to topbar panel quick settings menu" --uuid="add-username-toppanel@brendaw.com"
 ```
 
 Then copy all the extension files inside the folder created by the last command:
@@ -48,4 +48,4 @@ You may contribute in several ways like creating new features, fixing bugs, impr
 
 ## License
 
-[MIT](LICENSE) - William Brendaw - 2016-2021
+[MIT](LICENSE) - William Brendaw - 2016-2022

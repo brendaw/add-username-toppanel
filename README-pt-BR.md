@@ -12,14 +12,14 @@ Simples assim.
 
 ## Suporte
 
-Esta extensão suporta as versões 3.12 até a 40.1 do GNOME Shell.
+Esta extensão suporta as versões 3.12 até a 43 do GNOME Shell.
 
 ## Como compilar da fonte e instalar manualmente
 
 Dessa forma é mais complicado. Primeiro, vá até a pasta do repositório no terminal. Depois, você precisa rodar o comando do gnome-extensions para criar a base da extensão dentro da sua máquina:
 
 ``` bash
-$ gnome-extensions create --name="Add Username to Top Panel" --description="Simply add your username to topbar panel aggregate menu" --uuid="add-username-toppanel@brendaw.com"
+$ gnome-extensions create --name="Add Username to Top Panel" --description="Simply add your username to topbar panel quick settings menu" --uuid="add-username-toppanel@brendaw.com"
 ```
 Após esse comando, copie todos os arquivos da extensão para a pasta criada a partir do último comando:
 
@@ -45,4 +45,4 @@ Você pode contribuir de várias maneiras: criando novas funcionalidades, corrig
 
 ## Licença
 
-[MIT](LICENSE) - William Brendaw - 2016-2021
+[MIT](LICENSE) - William Brendaw - 2016-2022
