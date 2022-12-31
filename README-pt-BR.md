@@ -45,7 +45,7 @@ Você pode contribuir de várias maneiras: criando novas funcionalidades, corrig
 
 ## Contribuidores
 
-Veja no arquivo [AUTHORS](AUTHORS.md) para a lista de nomes dos incríveis contribuidores deste projeto.
+Veja no arquivo [AUTHORS](AUTHORS.md) a lista de nomes dos incríveis contribuidores deste projeto.
 
 ## Licença
 
