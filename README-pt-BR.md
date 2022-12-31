@@ -10,9 +10,9 @@ Vá para a [página da extensão](https://extensions.gnome.org/extension/1108/ad
 
 Simples assim.
 
-## Suporte
+## Compatibilidade
 
-Esta extensão suporta as versões 3.12 até a 43 do GNOME Shell.
+Esta extensão é compatível desde a versão 3.12 até a 43 do GNOME Shell.
 
 ## Como compilar da fonte e instalar manualmente
 

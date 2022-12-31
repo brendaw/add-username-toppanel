@@ -12,9 +12,9 @@ Just go at the [extension's page](https://extensions.gnome.org/extension/1108/ad
 
 And is simple as that.
 
-## Support
+## Compatibility
 
-This extension supports GNOME Shell versions from 3.12 to 43
+This extension is compatible with the GNOME Shell versions from 3.12 to 43.
 
 ## How to build from source and manually install
 
