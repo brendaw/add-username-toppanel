@@ -14,6 +14,14 @@ Simples assim.
 
 Esta extensão é compatível desde a versão 3.12 até a 43 do GNOME Shell.
 
+## Probemas Conhecidos
+
+### Estensão mostra "Unknown" ao invés do meu nome
+
+Se a extensão está mostrando "Unknown" ao invés do nome esperado, ou mesmo ao trocar de usuários localmente, então o problema pode ser algo que está faltando no arquivo `/etc/passwd`, onde a extensão busca a informação do nome do usuário. Dê uma conferida nele para ver se existe a informação marcada na imagem abaixo e faça o ajuste necessário (no caso adicionar o seu nome) para mostrar na próxima vez que o shell GNOME for inicializado. 
+
+![image](https://user-images.githubusercontent.com/3674847/210005925-bd7c1aab-5d05-4650-987f-869fda41e8a6.png)
+
 ## Como compilar da fonte e instalar manualmente
 
 Dessa forma é mais complicado. Primeiro, vá até a pasta do repositório no terminal. Depois, você precisa rodar o comando do gnome-extensions para criar a base da extensão dentro da sua máquina:

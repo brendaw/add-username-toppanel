@@ -16,6 +16,14 @@ And is simple as that.
 
 This extension is compatible with the GNOME Shell versions from 3.12 to 43.
 
+## Common Issues
+
+### Extension only shows "Unknown" istead of my name
+
+If the extension is showing "Unknown" instead of your desired name after installation, or even on swithing between users locally, then it might be missing something in the `/etc/passwd`, where the extension look at to bring the user display name. Check it and look if it has the info marked in the picture below, and make the changes (in this case... fill with your name) to show up in the next GNOME shell boot.
+
+![image](https://user-images.githubusercontent.com/3674847/210005925-bd7c1aab-5d05-4650-987f-869fda41e8a6.png)
+
 ## How to build from source and manually install
 
 This way is more trick. First of all, move yourself inside the repository folder. After this, you need to run the gnome-extensions command to create the extention's boilerplate inside your machine:
