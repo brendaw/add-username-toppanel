@@ -14,7 +14,7 @@ And is simple as that.
 
 ## Compatibility
 
-This extension is compatible with the GNOME Shell versions from 3.12 to 43.
+This extension is compatible with the GNOME Shell versions from 3.12 to 44.
 
 ## Common Issues
 
@@ -60,4 +60,4 @@ See on [AUTHORS](AUTHORS.md) file the amazing contributors' name of this project
 
 ## License
 
-[MIT](LICENSE) - William Brendaw and the contributors - 2016-2022
+[MIT](LICENSE) - William Brendaw and the contributors - 2016-2023
