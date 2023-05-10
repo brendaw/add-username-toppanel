@@ -6,7 +6,8 @@
     "williambrendaw@icloud.com"
   ],
   "shell-version": [
-    "44"
+    "44",
+    "43"
   ],
   "url": "https://github.com/brendaw/add-username-toppanel",
   "uuid": "add-username-toppanel@brendaw.com",
