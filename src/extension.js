@@ -7,42 +7,12 @@
   Hack it!
 */
 
-const Clutter = imports.gi.Clutter;
-const St = imports.gi.St;
-const Main = imports.ui.main;
-const GLib = imports.gi.GLib;
-const GObject = imports.gi.GObject;
-const QuickSettings = imports.ui.quickSettings;
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
+import { UsernameIndicator } from './UsernameIndicator.js';
+import GObject from 'gi://GObject';
 
-// This is the live instance of the Quick Settings menu
-const QuickSettingsMenu = imports.ui.main.panel.statusArea.quickSettings;
-
-// Our QuickSettings.SystemIndicator subclass
-const UsernameIndicator = GObject.registerClass(
-class UsernameIndicator extends QuickSettings.SystemIndicator {
-
-    _init() {
-        // Chaining up to the super-class
-        super._init();
-
-        // Create the text label for a new indicator (child)
-        this._indicator = this._addIndicator();
-        const usernameLabel = new St.Label({
-            text:    GLib.get_real_name(),
-            y_align: Clutter.ActorAlign.CENTER,
-        });
-        this.add_child(usernameLabel);
-
-        // Add the indicator to the panel
-        QuickSettingsMenu._indicators.add_child(this)
-    }
-
-});
-
-class Extension {
-    constructor() {
-        this._indicator = null;
-    }
+export default class UsernameIndicatorExtension extends Extension {
+    _indicator;
 
     enable() {
         this._indicator = new UsernameIndicator();
@@ -54,7 +24,7 @@ class Extension {
     }
 }
 
-function init() {
-    return new Extension();
-}
-
+GObject.registerClass(
+    {GTypeName: 'UsernameIndicator'},
+    UsernameIndicator
+);
