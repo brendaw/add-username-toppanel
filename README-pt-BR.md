@@ -57,4 +57,4 @@ Veja no arquivo [AUTHORS](AUTHORS.md) a lista de nomes dos incríveis contribuid
 
 ## Licença
 
-[MIT](LICENSE) - William Brendaw e os contribuidores - 2016-2023
+[MIT](LICENSE) - William Brendaw e os contribuidores - 2016-2024
