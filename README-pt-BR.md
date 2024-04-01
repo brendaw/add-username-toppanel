@@ -12,7 +12,7 @@ Simples assim.
 
 ## Compatibilidade
 
-Esta extensão é compatível desde a versão 3.12 até a 45 do GNOME Shell.
+Esta extensão é compatível desde a versão 3.12 até a 46 do GNOME Shell.
 
 ## Probemas Conhecidos
 
@@ -57,4 +57,4 @@ Veja no arquivo [AUTHORS](AUTHORS.md) a lista de nomes dos incríveis contribuid
 
 ## Licença
 
-[MIT](LICENSE) - William Brendaw e os contribuidores - 2016-2023
+[MIT](LICENSE) - William Brendaw e os contribuidores - 2016-2024
