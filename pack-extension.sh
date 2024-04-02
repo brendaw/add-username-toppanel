@@ -5,7 +5,7 @@ build_folder=build
 
 metadata_file=$source_folder/metadata.json
 
-extension_uuid=`cat $metadata_file | grep -Po '"uuid": *\K"[^"]*"' | sed "s/\"//g"`
+extension_uuid=add-username-toppanel@brendaw.com
 
 packed_extension_file=$build_folder/$extension_uuid.zip
 
