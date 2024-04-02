@@ -2,8 +2,6 @@
 
 ![add-username-to-toppanel](https://extensions.gnome.org/extension-data/screenshots/screenshot_1108_zJTOY5M.png)
 
-_Leia isso em [Português](README-pt-BR.md)._
-
 Simply add your username to topbar panel quick settings menu in GNOME Shell.
 
 ### How to install
