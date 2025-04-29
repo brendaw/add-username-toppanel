@@ -10,13 +10,19 @@ GitHub usernames are indicated in parentheses, or as sole entry when no other na
 William Brendaw (brendaw)
 ```
 
+## Distinguished Maintainer
+
+```
+Joshua Huber (Josholith)
+```
+
 ## Incredible Contributors
 
 (in alphabetical order)
 
 ```
 Cem Özden (cemozden)
-Joshua Huber (Josholith)
+Jiří Švácha (jirkasvacha)
 Rúben Carneiro (rubencarneiro)
 Samuel Kyletoft (SKyletoft)
 ```
