@@ -58,4 +58,4 @@ See on [AUTHORS](AUTHORS.md) file the amazing contributors' name of this project
 
 ## License
 
-[MIT](LICENSE) - William Brendaw and the contributors - 2016-2024
+[MIT](LICENSE) - William Brendaw and the contributors - 2016-2025
