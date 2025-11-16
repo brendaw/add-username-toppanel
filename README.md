@@ -12,7 +12,7 @@ And is simple as that.
 
 ## Compatibility
 
-This extension is compatible with the GNOME Shell versions from 3.12 to 48.
+This extension is compatible with the GNOME Shell versions from 3.12 to 49.
 
 ## Common Issues
 
