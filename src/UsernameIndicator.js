@@ -17,9 +17,25 @@ export class UsernameIndicator extends SystemIndicator {
         });
         this.add_child(usernameLabel);
 
-        // This is the live instance of the Quick Settings menu
+        // GNOME's intended indicator layout is [privacy] [extensions] [system],
+        // so addExternalIndicator() places us in the middle slot. For a user
+        // name label we want it next to the system menu. Re-anchor to the end
+        // whenever a child is added — including our own insertion below, and
+        // any later siblings (system indicators still spinning up during
+        // auto-login boot, privacy icons turning on at runtime).
         const QuickSettingsMenu = Main.panel.statusArea.quickSettings;
+        this._indicatorsBox = QuickSettingsMenu._indicators;
+        this._childAddedId = this._indicatorsBox.connect('child-added',
+            () => this._indicatorsBox.set_child_above_sibling(this, null));
         QuickSettingsMenu.addExternalIndicator(this);
+    }
+
+    destroy() {
+        if (this._childAddedId) {
+            this._indicatorsBox.disconnect(this._childAddedId);
+            this._childAddedId = 0;
+        }
+        super.destroy();
     }
 
 };
