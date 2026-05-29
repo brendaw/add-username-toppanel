@@ -1,6 +1,6 @@
 # Add Username to Top Panel
 
-![add-username-to-toppanel](https://extensions.gnome.org/extension-data/screenshots/screenshot_1108_zJTOY5M.png)
+![add-username-to-toppanel](https://extensions.gnome.org/extension-data/screenshots/screenshot_1108_qjQUeTi.png)
 
 Simply add your username to topbar panel quick settings menu in GNOME Shell.
 
@@ -12,7 +12,7 @@ And is simple as that.
 
 ## Compatibility
 
-This extension is compatible with the GNOME Shell versions from 3.12 to 49.
+This extension is compatible with the GNOME Shell versions from 3.12 to 50.
 
 ## Common Issues
 
@@ -58,4 +58,4 @@ See on [AUTHORS](AUTHORS.md) file the amazing contributors' name of this project
 
 ## License
 
-[MIT](LICENSE) - William Brendaw and the contributors - 2016-2025
+[MIT](LICENSE) - William Brendaw and the contributors - 2016-2026

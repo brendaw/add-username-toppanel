@@ -23,6 +23,7 @@ Joshua Huber (Josholith)
 ```
 Cem Özden (cemozden)
 Jiří Švácha (jirkasvacha)
+Peter Bittner (bittner)
 Rúben Carneiro (rubencarneiro)
 Samuel Kyletoft (SKyletoft)
 ```
