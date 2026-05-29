@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is inspired on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres (in parts) to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.6](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.6) - 2026-05-29
+
+### Changed
+
+- Update authors, license, changelog, and readme
+- Updated code formatting
+- Added update local install script
+- Fixes username appearing on left end of Quick Settings (#28)
+
+## [3.5](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.5) - 2026-04-19
+
+### Changed
+
+- Added support to GNOME version 50
+- Updated author's email
+
 ## [3.4](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.4) - 2025-11-16
 
 ### Changed
