@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is inspired on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres (in parts) to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- ESLint setup with GNOME Shell config and `npm run lint` script
+- GitHub Actions CI workflow: lint and metadata validation on PRs
+- GitHub Actions release workflow: automated GitHub Release on version tags
+- GitHub issue templates (bug report, feature request) and PR template
+- CODEOWNERS file designating @brendaw as required reviewer
+
+### Changed
+
+- Rewrote README and added CONTRIBUTING guide
+- Reorganized shell scripts into `scripts/` directory
+- Renamed source file to camelCase (`usernameIndicator.js`)
+- Added `.editorconfig` to enforce coding style
+
 ## [3.6](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.6) - 2026-05-29
 
 ### Changed
@@ -11,7 +28,10 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 - Update authors, license, changelog, and readme
 - Updated code formatting
 - Added update local install script
-- Fixes username appearing on left end of Quick Settings (#28)
+
+### Fixed
+
+- Username appearing on left end of Quick Settings (#28)
 
 ## [3.5](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.5) - 2026-04-19
 
@@ -67,11 +87,11 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 
 ### Changed
 
-- Code strucuture to support GNOME Shell version 43 (thanks, [@josholith](https://github.com/josholith))
+- Code structure to support GNOME Shell version 43 (thanks, [@josholith](https://github.com/josholith))
 - Reordered repository archives for a better organization
 - Updated LICENSE with reference to the new AUTHORS file
 
-## [1.](https://github.com/brendaw/add-username-toppanel/releases/tag/v1.5) - 2021-11-10
+## [1.5](https://github.com/brendaw/add-username-toppanel/releases/tag/v1.5) - 2021-11-10
 
 ### Added
 
