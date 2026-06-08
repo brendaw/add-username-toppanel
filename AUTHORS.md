@@ -1,6 +1,6 @@
 # Add Username to Top Panel Contributors
 
-Here are the list of the people who makes or contributes to this project.
+Here is the list of the people who have contributed to this project.
 
 GitHub usernames are indicated in parentheses, or as sole entry when no other name is available.
 
@@ -13,7 +13,7 @@ William Brendaw (brendaw)
 ## Distinguished Maintainer
 
 ```
-Joshua Huber (Josholith)
+Joshua Huber (josholith)
 ```
 
 ## Incredible Contributors
