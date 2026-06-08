@@ -19,7 +19,7 @@ Contributions are welcome — bug fixes, new features, documentation improvement
 2. Install the extension locally for testing:
 
    ```bash
-   ./update-local.sh
+   ./scripts/update-local.sh
    ```
 
    This copies the files from `src/` to `~/.local/share/gnome-shell/extensions/add-username-toppanel@brendaw.com`.
@@ -30,7 +30,7 @@ Contributions are welcome — bug fixes, new features, documentation improvement
    gnome-extensions enable add-username-toppanel@brendaw.com
    ```
 
-4. After making changes, re-run `./update-local.sh` and restart GNOME Shell
+4. After making changes, re-run `./scripts/update-local.sh` and restart GNOME Shell
    (`Alt+F2` → `r` on X11, or log out/in on Wayland).
 
 ## Building for release
@@ -38,7 +38,7 @@ Contributions are welcome — bug fixes, new features, documentation improvement
 To generate the `.zip` file for publishing on GNOME Extensions:
 
 ```bash
-./pack-extension.sh
+./scripts/pack-extension.sh
 ```
 
 The packed file will be placed at `build/add-username-toppanel@brendaw.com.zip`.
