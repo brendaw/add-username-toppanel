@@ -117,7 +117,14 @@ if grep -q "^## \[$VERSION\]" "$CHANGELOG"; then
 	echo "✓ [Unreleased] updated with commits since $LATEST_TAG"
 	echo ""
 	echo "Suggested next version: v$next_v ($bump bump)"
-	echo "  When ready: git tag v$next_v && git push origin v$next_v"
+	echo ""
+	echo "To release, follow these steps in order:"
+	echo "  1. git tag v$next_v"
+	echo "  2. ./scripts/changelog.sh          # generates [$next_v] entry in CHANGELOG"
+	echo "  3. git add CHANGELOG.md src/metadata.json"
+	echo "  4. git commit -m \"chore: release v$next_v\""
+	echo "  5. git push origin main            # CHANGELOG must be on main before the tag"
+	echo "  6. git push origin v$next_v        # triggers the release workflow"
 
 else
 	# New tag not in CHANGELOG → generate versioned entry and bump metadata
@@ -158,7 +165,9 @@ else
 
 	echo "✓ Generated entry for $LATEST_TAG (metadata.json: $current_v → $new_v)"
 	echo ""
-	echo "Review the changes, then commit:"
-	echo "  git add CHANGELOG.md src/metadata.json"
-	echo "  git commit -m \"chore: release v$VERSION\""
+	echo "Steps 1-2 done (tag created, changelog generated). To finish the release:"
+	echo "  3. git add CHANGELOG.md src/metadata.json"
+	echo "  4. git commit -m \"chore: release v$VERSION\""
+	echo "  5. git push origin main            # CHANGELOG must be on main before the tag"
+	echo "  6. git push origin $LATEST_TAG     # triggers the release workflow"
 fi

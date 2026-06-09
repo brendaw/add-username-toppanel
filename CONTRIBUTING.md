@@ -107,34 +107,17 @@ Releases are published automatically when a version tag is pushed. This project 
    ✓ [Unreleased] updated with commits since v3.6
 
    Suggested next version: v3.7.0 (minor bump)
-     When ready: git tag v3.7.0 && git push origin v3.7.0
+
+   To release, follow these steps in order:
+     1. git tag v3.7.0
+     2. ./scripts/changelog.sh          # generates [3.7.0] entry in CHANGELOG
+     3. git add CHANGELOG.md src/metadata.json
+     4. git commit -m "chore: release v3.7.0"
+     5. git push origin main            # CHANGELOG must be on main before the tag
+     6. git push origin v3.7.0          # triggers the release workflow
    ```
 
-2. Create the tag **locally** (do not push yet):
-
-   ```bash
-   git tag vX.Y.Z
-   ```
-
-3. Run the changelog script again — it detects the local tag and generates the versioned entry, also bumping the integer version in `metadata.json`:
-
-   ```bash
-   ./scripts/changelog.sh
-   ```
-
-4. Review, commit, and push `main` **before** pushing the tag:
-
-   ```bash
-   git add CHANGELOG.md src/metadata.json
-   git commit -m "chore: release vX.Y.Z"
-   git push origin main
-   ```
-
-5. Now push the tag — this triggers the release workflow, which will find the `[X.Y.Z]` section already on `main`:
-
-   ```bash
-   git push origin vX.Y.Z
-   ```
+The script prints the full sequence of steps to follow. Execute them in order — the key constraint is that `main` must be pushed (step 5) **before** the tag (step 6), so the release workflow finds the changelog entry already on `main`.
 
 The CI will then package the extension and create a GitHub Release with the changelog notes attached automatically.
 
