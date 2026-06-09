@@ -26,25 +26,57 @@ When `shexli` is available in the active environment, `./scripts/build.sh` runs 
 
 Releases are published automatically when a version tag is pushed. This project follows [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`).
 
-1. Run `./scripts/changelog.sh` to populate `[Unreleased]` and get the suggested next version:
+### Using release.sh (recommended)
 
-   ```
-   ✓ [Unreleased] updated with commits since v3.7.0
+Run `./scripts/release.sh` to automate the entire flow:
 
-   Suggested next version: v3.8.0 (minor bump)
+```bash
+./scripts/release.sh           # suggests next version from commit history
+./scripts/release.sh v3.9.0    # explicit version override
+```
 
-   To release, follow these steps in order:
-     1. git tag v3.8.0
-     2. ./scripts/changelog.sh          # generates [3.8.0] entry in CHANGELOG
-     3. git add CHANGELOG.md src/metadata.json
-     4. git commit -m "chore: release v3.8.0"
-     5. git push origin main            # CHANGELOG must be on main before the tag
-     6. git push origin v3.8.0          # triggers the release workflow
-   ```
+The script will:
 
-The script prints the full sequence of steps to follow. Execute them in order — the key constraint is that `main` must be pushed (step 5) **before** the tag (step 6), so the release workflow finds the changelog entry already on `main`.
+1. Detect the next version from conventional commits (MAJOR / MINOR / PATCH) or accept an explicit override
+2. Ask for confirmation, then create the tag and generate the CHANGELOG entry via `./scripts/changelog.sh`
+3. Show a diff of the changes for review
+4. Ask for a final confirmation, then commit, push `main`, and push the tag — triggering the release workflow
 
 The CI will then package the extension and create a GitHub Release with the changelog notes attached automatically.
+
+### Manual steps (without release.sh)
+
+If you need to run the steps individually:
+
+1. Run `./scripts/changelog.sh` to populate `[Unreleased]` and review what has changed since the last tag.
+
+2. Create the tag locally:
+
+   ```bash
+   git tag vX.Y.Z
+   ```
+
+3. Run `./scripts/changelog.sh` again — it detects the new tag and generates the versioned entry:
+
+   ```
+   ✓ Generated entry for vX.Y.Z (metadata.json: 19 → 20)
+   ```
+
+4. Commit and push `main` **before** pushing the tag:
+
+   ```bash
+   git add CHANGELOG.md src/metadata.json
+   git commit -m "chore: release vX.Y.Z"
+   git push origin main
+   ```
+
+5. Push the tag — this triggers the release workflow:
+
+   ```bash
+   git push origin vX.Y.Z
+   ```
+
+The key constraint in both flows is that `main` must be pushed **before** the tag, so the release workflow finds the CHANGELOG entry already on `main`.
 
 ## Recreating or backfilling a release for an existing tag
 
@@ -59,10 +91,10 @@ The workflow checks out `main` for the scripts, overlays `src/` from the specifi
 
 ## Keeping `[Unreleased]` up to date during development
 
-Run `./scripts/changelog.sh` at any point — the script detects the state of the repository and behaves accordingly:
+Run `./scripts/changelog.sh` at any point to refresh the `[Unreleased]` section with conventional commits since the last tag. The script detects the state of the repository and behaves accordingly:
 
-- **Latest tag already in CHANGELOG** (normal development): populates the `[Unreleased]` section with conventional commits since that tag, categorized by type. Overwrites any existing content in `[Unreleased]`. Also prints a suggested next version based on [Semantic Versioning](https://semver.org/).
-- **New tag not yet in CHANGELOG** (after `git tag vX.Y.Z`): generates the versioned `## [X.Y.Z]` entry from commits between the previous and new tag. Bumps the integer `version` in `metadata.json` only if files in `src/` changed — since that is the number the GNOME Extensions website uses to detect updates.
+- **Latest tag already in CHANGELOG** (normal development): populates `[Unreleased]` with commits since that tag, categorized by type. Overwrites any existing content.
+- **New tag not yet in CHANGELOG** (after `git tag vX.Y.Z`): generates the versioned `## [X.Y.Z]` entry. Bumps the integer `version` in `metadata.json` only if files in `src/` changed — since that is the number the GNOME Extensions website uses to detect updates.
 
 Commits are categorized and influence the suggested version bump based on their [conventional commit](https://www.conventionalcommits.org/) prefix:
 

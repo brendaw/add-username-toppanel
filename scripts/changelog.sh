@@ -20,38 +20,6 @@ fi
 
 VERSION="${LATEST_TAG#v}"
 
-# Suggest MAJOR, MINOR or PATCH based on conventional commits between two refs
-suggest_bump() {
-	local from="$1" to="${2:-HEAD}"
-
-	if git log "${from}..${to}" --pretty=format:"%s%n%b" | grep -qE "^[a-z]+(\([^)]*\))?!:|^BREAKING[- ]CHANGE"; then
-		echo "major"
-		return
-	fi
-
-	if git log "${from}..${to}" --pretty=format:"%s" | grep -qE "^feat(\([^)]*\))?:"; then
-		echo "minor"
-		return
-	fi
-
-	echo "patch"
-}
-
-# Calculate next X.Y.Z version given current version string and bump type
-next_version() {
-	local current="$1" bump="$2"
-	local major minor patch
-
-	IFS='.' read -r major minor patch <<< "$current"
-	patch="${patch:-0}"
-
-	case "$bump" in
-		major) echo "$((major + 1)).0.0" ;;
-		minor) echo "${major}.$((minor + 1)).0" ;;
-		patch) echo "${major}.${minor}.$((patch + 1))" ;;
-	esac
-}
-
 # Collect commits between two refs, write categorized markdown to a file
 collect_commits_to_file() {
 	local from="$1" to="$2" out="$3"
@@ -111,20 +79,8 @@ if grep -q "^## \[$VERSION\]" "$CHANGELOG"; then
 	mv "$tmp_cl" "$CHANGELOG"
 	rm "$tmp_content"
 
-	bump=$(suggest_bump "$LATEST_TAG" "HEAD")
-	next_v=$(next_version "$VERSION" "$bump")
-
 	echo "✓ [Unreleased] updated with commits since $LATEST_TAG"
-	echo ""
-	echo "Suggested next version: v$next_v ($bump bump)"
-	echo ""
-	echo "To release, follow these steps in order:"
-	echo "  1. git tag v$next_v"
-	echo "  2. ./scripts/changelog.sh          # generates [$next_v] entry in CHANGELOG"
-	echo "  3. git add CHANGELOG.md src/metadata.json"
-	echo "  4. git commit -m \"chore: release v$next_v\""
-	echo "  5. git push origin main            # CHANGELOG must be on main before the tag"
-	echo "  6. git push origin v$next_v        # triggers the release workflow"
+	echo "  Run ./scripts/release.sh when ready to cut a new version."
 
 else
 	# New tag not in CHANGELOG → generate versioned entry and bump metadata
@@ -170,17 +126,22 @@ else
 		sed -i.bak "s/\"version\": $current_v/\"version\": $new_v/" src/metadata.json
 		rm -f src/metadata.json.bak
 		echo "✓ Generated entry for $LATEST_TAG (metadata.json: $current_v → $new_v)"
-		echo ""
-		echo "Steps 1-2 done (tag created, changelog generated). To finish the release:"
-		echo "  3. git add CHANGELOG.md src/metadata.json"
-		echo "  4. git commit -m \"chore: release v$VERSION\""
 	else
 		echo "✓ Generated entry for $LATEST_TAG (no src/ changes — metadata.json version unchanged)"
-		echo ""
-		echo "Steps 1-2 done (tag created, changelog generated). To finish the release:"
-		echo "  3. git add CHANGELOG.md"
-		echo "  4. git commit -m \"chore: release v$VERSION\""
 	fi
-	echo "  5. git push origin main            # CHANGELOG must be on main before the tag"
-	echo "  6. git push origin $LATEST_TAG     # triggers the release workflow"
+
+	if [[ -z "$RELEASING" ]]; then
+		echo ""
+		echo "Review the changes, then:"
+		if [[ -n "$src_changed" ]]; then
+			echo "  git add CHANGELOG.md src/metadata.json"
+		else
+			echo "  git add CHANGELOG.md"
+		fi
+		echo "  git commit -m \"chore: release $LATEST_TAG\""
+		echo "  git push origin main"
+		echo "  git push origin $LATEST_TAG"
+		echo ""
+		echo "Tip: use ./scripts/release.sh to automate this flow."
+	fi
 fi
