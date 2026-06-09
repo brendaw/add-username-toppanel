@@ -101,6 +101,17 @@ Releases are published automatically when a version tag is pushed.
 
 The CI will then package the extension and create a GitHub Release with the changelog notes attached automatically.
 
+**Recreating or backfilling a release for an existing tag:**
+
+If a GitHub Release needs to be (re)generated for an older tag, trigger the workflow manually:
+
+1. Go to **Actions → Release → Run workflow**
+2. Keep the branch set to **`main`**
+3. Enter the tag in the **"Tag to release"** field (e.g. `v3.6`)
+4. Click **Run workflow**
+
+The workflow checks out `main` for the scripts, overlays `src/` from the specified tag, builds the package, and creates or updates the GitHub Release with the changelog notes for that version.
+
 **Keeping `[Unreleased]` up to date during development:**
 
 Run `./scripts/changelog.sh` at any point — the script detects the state of the repository and behaves accordingly:
