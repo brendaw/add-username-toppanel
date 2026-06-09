@@ -62,21 +62,24 @@ If you need to run the steps individually:
    ✓ Generated entry for vX.Y.Z (metadata.json: 19 → 20)
    ```
 
-4. Commit and push `main` **before** pushing the tag:
+4. Commit the changes and move the tag to the release commit:
 
    ```bash
    git add CHANGELOG.md src/metadata.json
    git commit -m "chore: release vX.Y.Z"
-   git push origin main
+   git tag -f vX.Y.Z
    ```
 
-5. Push the tag — this triggers the release workflow:
+   The `git tag -f` is required because the tag was created before the CHANGELOG commit — it must point to the release commit so the workflow reads the correct CHANGELOG.
+
+5. Push `main` and then the tag:
 
    ```bash
+   git push origin main
    git push origin vX.Y.Z
    ```
 
-The key constraint in both flows is that `main` must be pushed **before** the tag, so the release workflow finds the CHANGELOG entry already on `main`.
+The key constraints: the tag must point to the release commit (step 4), and `main` must be pushed before the tag (step 5), so the workflow checks out the correct state.
 
 ## Recreating or backfilling a release for an existing tag
 

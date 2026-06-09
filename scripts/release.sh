@@ -97,6 +97,9 @@ echo "→ Committing..."
 git add "${files_to_add[@]}"
 git commit -m "chore: release $NEW_TAG"
 
+echo "→ Moving tag $NEW_TAG to release commit..."
+git tag -f "$NEW_TAG"
+
 echo "→ Pushing main..."
 git push origin main
 
