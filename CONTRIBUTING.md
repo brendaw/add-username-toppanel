@@ -56,20 +56,34 @@ The packed file will be placed at `build/add-username-toppanel@brendaw.com.zip`.
 
 ## Creating a release
 
-Releases are published automatically when a version tag is pushed. Before tagging:
+Releases are published automatically when a version tag is pushed.
 
-1. Update `metadata.json` — bump the integer `version` field
-2. Update `CHANGELOG.md`:
-   - Rename `## [Unreleased]` to `## [X.Y](https://github.com/brendaw/add-username-toppanel/releases/tag/vX.Y) - YYYY-MM-DD`
-   - Add a new empty `## [Unreleased]` section at the top
-3. Commit the changes, then push the tag:
+1. Push the tag:
 
    ```bash
    git tag vX.Y
    git push origin vX.Y
    ```
 
-The CI will package the extension and create a GitHub Release with the changelog notes attached automatically.
+2. Run the changelog script — it detects the new tag and generates the versioned entry, also bumping the integer version in `metadata.json`:
+
+   ```bash
+   ./scripts/update-changelog.sh
+   ```
+
+3. Review the changes, then commit and push:
+
+   ```bash
+   git add CHANGELOG.md src/metadata.json
+   git commit -m "chore: release vX.Y"
+   git push origin main
+   ```
+
+The CI will then package the extension and create a GitHub Release with the changelog notes attached automatically.
+
+**Keeping `[Unreleased]` up to date during development:**
+
+Run `./scripts/update-changelog.sh` at any point to populate the `[Unreleased]` section with conventional commits since the last tag. The script will not overwrite existing manual content.
 
 ## Submitting changes
 
