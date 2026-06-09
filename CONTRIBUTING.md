@@ -2,17 +2,20 @@
 
 Contributions are welcome — bug fixes, new features, documentation improvements, and translations.
 
+For bug reports or feature requests, [open an Issue](https://github.com/brendaw/add-username-toppanel/issues) first so the approach can be discussed before you start coding.
+
 ## Prerequisites
 
 - GNOME Shell installed locally (45+)
 - Git
+- Node.js (for linting)
 
-## Setting up locally
+## How to contribute
 
-1. Clone the repository:
+1. [Fork the repository](https://github.com/brendaw/add-username-toppanel/fork) and clone your fork:
 
    ```bash
-   git clone https://github.com/brendaw/add-username-toppanel.git
+   git clone https://github.com/<your-username>/add-username-toppanel.git
    cd add-username-toppanel
    ```
 
@@ -30,8 +33,19 @@ Contributions are welcome — bug fixes, new features, documentation improvement
    gnome-extensions enable add-username-toppanel@brendaw.com
    ```
 
-4. After making changes, re-run `./scripts/local.sh` and restart GNOME Shell
+4. Make your changes in `src/`. After each change, re-run `./scripts/local.sh` and restart GNOME Shell
    (`Alt+F2` → `r` on X11, or log out/in on Wayland).
+
+5. Run the linter before opening a PR:
+
+   ```bash
+   npm install
+   npm run lint
+   ```
+
+6. Open a Pull Request against `main` describing what changed and why.
+
+You do not need to bump versions, update `metadata.json`, or run `./scripts/changelog.sh` — versioning and releases are handled by the maintainer after the PR is merged.
 
 ## Code style
 
@@ -41,15 +55,6 @@ The repository includes an `.editorconfig` file. Most editors support it nativel
 - 2-space indentation for `.js` and `.json`
 - Tab indentation for `.sh` scripts
 - Final newline and no trailing whitespace
-
-## Linting
-
-Before submitting a PR, make sure the code passes the linter:
-
-```bash
-npm install
-npm run lint
-```
 
 ## GNOME Shell globals
 
@@ -77,7 +82,11 @@ Every pull request and push to `main` runs three automated checks:
 
 All three must pass before a PR can be merged.
 
-## Building for release
+---
+
+## Maintainer reference
+
+### Building for release
 
 To generate the `.zip` file for publishing on GNOME Extensions:
 
@@ -97,26 +106,24 @@ pip install -U shexli
 
 When `shexli` is available in the active environment, `./scripts/build.sh` runs the validation automatically after packing. If it is not installed, the script skips validation and prints the command to set it up. Validation is always enforced in CI regardless of local setup.
 
-## Creating a release
-
-> **Maintainers only.** If you are a contributor, see [Submitting changes](#submitting-changes) below — you do not need to cut releases or manage versions.
+### Creating a release
 
 Releases are published automatically when a version tag is pushed. This project follows [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`).
 
 1. Run `./scripts/changelog.sh` to populate `[Unreleased]` and get the suggested next version:
 
    ```
-   ✓ [Unreleased] updated with commits since v3.6
+   ✓ [Unreleased] updated with commits since v3.7.0
 
-   Suggested next version: v3.7.0 (minor bump)
+   Suggested next version: v3.8.0 (minor bump)
 
    To release, follow these steps in order:
-     1. git tag v3.7.0
-     2. ./scripts/changelog.sh          # generates [3.7.0] entry in CHANGELOG
+     1. git tag v3.8.0
+     2. ./scripts/changelog.sh          # generates [3.8.0] entry in CHANGELOG
      3. git add CHANGELOG.md src/metadata.json
-     4. git commit -m "chore: release v3.7.0"
+     4. git commit -m "chore: release v3.8.0"
      5. git push origin main            # CHANGELOG must be on main before the tag
-     6. git push origin v3.7.0          # triggers the release workflow
+     6. git push origin v3.8.0          # triggers the release workflow
    ```
 
 The script prints the full sequence of steps to follow. Execute them in order — the key constraint is that `main` must be pushed (step 5) **before** the tag (step 6), so the release workflow finds the changelog entry already on `main`.
@@ -151,18 +158,6 @@ Commits are categorized and influence the suggested version bump based on their 
 | `docs:`, `chore:`, `ci:`, `refactor:`, `style:`, `build:`, `perf:`, `test:` | Changed | PATCH |
 
 Commits without a conventional prefix are ignored by the script.
-
-## Submitting changes
-
-1. [Fork the repository](https://github.com/brendaw/add-username-toppanel/fork) and create a branch for your change
-2. Make your changes in `src/`
-3. Run `npm install && npm run lint` to ensure the linter passes
-4. Test locally with `./scripts/local.sh`
-5. Open a Pull Request against `main` describing what changed and why
-
-You do not need to bump versions, update `metadata.json`, or run `./scripts/changelog.sh` — versioning and releases are handled by the maintainer after the PR is merged.
-
-For bug reports or feature requests, open an [Issue](https://github.com/brendaw/add-username-toppanel/issues) first.
 
 ---
 
