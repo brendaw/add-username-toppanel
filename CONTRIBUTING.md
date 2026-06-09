@@ -99,6 +99,8 @@ When `shexli` is available in the active environment, `./scripts/build.sh` runs 
 
 ## Creating a release
 
+> **Maintainers only.** If you are a contributor, see [Submitting changes](#submitting-changes) below — you do not need to cut releases or manage versions.
+
 Releases are published automatically when a version tag is pushed. This project follows [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`).
 
 1. Run `./scripts/changelog.sh` to populate `[Unreleased]` and get the suggested next version:
@@ -152,10 +154,13 @@ Commits without a conventional prefix are ignored by the script.
 
 ## Submitting changes
 
-1. Fork the repository and create a branch for your change
+1. [Fork the repository](https://github.com/brendaw/add-username-toppanel/fork) and create a branch for your change
 2. Make your changes in `src/`
-3. Test locally with `./scripts/local.sh`
-4. Open a Pull Request describing what changed and why
+3. Run `npm install && npm run lint` to ensure the linter passes
+4. Test locally with `./scripts/local.sh`
+5. Open a Pull Request against `main` describing what changed and why
+
+You do not need to bump versions, update `metadata.json`, or run `./scripts/changelog.sh` — versioning and releases are handled by the maintainer after the PR is merged.
 
 For bug reports or feature requests, open an [Issue](https://github.com/brendaw/add-username-toppanel/issues) first.
 
