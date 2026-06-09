@@ -137,7 +137,7 @@ The workflow checks out `main` for the scripts, overlays `src/` from the specifi
 Run `./scripts/changelog.sh` at any point — the script detects the state of the repository and behaves accordingly:
 
 - **Latest tag already in CHANGELOG** (normal development): populates the `[Unreleased]` section with conventional commits since that tag, categorized by type. Overwrites any existing content in `[Unreleased]`. Also prints a suggested next version based on [Semantic Versioning](https://semver.org/).
-- **New tag not yet in CHANGELOG** (after pushing a tag): generates the versioned `## [X.Y.Z]` entry from commits between the previous and new tag, and bumps the integer `version` in `metadata.json`.
+- **New tag not yet in CHANGELOG** (after `git tag vX.Y.Z`): generates the versioned `## [X.Y.Z]` entry from commits between the previous and new tag, and bumps the integer `version` in `metadata.json`.
 
 Commits are categorized and influence the suggested version bump based on their [conventional commit](https://www.conventionalcommits.org/) prefix:
 
@@ -146,7 +146,7 @@ Commits are categorized and influence the suggested version bump based on their 
 | `feat!:`, `fix!:`, or `BREAKING CHANGE` in body | — | MAJOR |
 | `feat:` | Added | MINOR |
 | `fix:` | Fixed | PATCH |
-| `docs:`, `chore:`, `ci:`, `refactor:` | Changed | PATCH |
+| `docs:`, `chore:`, `ci:`, `refactor:`, `style:`, `build:`, `perf:`, `test:` | Changed | PATCH |
 
 Commits without a conventional prefix are ignored by the script.
 
@@ -154,7 +154,7 @@ Commits without a conventional prefix are ignored by the script.
 
 1. Fork the repository and create a branch for your change
 2. Make your changes in `src/`
-3. Test locally with `local.sh`
+3. Test locally with `./scripts/local.sh`
 4. Open a Pull Request describing what changed and why
 
 For bug reports or feature requests, open an [Issue](https://github.com/brendaw/add-username-toppanel/issues) first.
