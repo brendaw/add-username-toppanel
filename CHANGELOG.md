@@ -44,6 +44,29 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 - fix grammar and username casing in AUTHORS
 
 
+
+## [3.8.0](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.8.0) - 2026-06-09
+
+### Added
+
+- add release.sh to automate release flow and simplify changelog.sh
+- skip metadata.json version bump when src/ has no changes between tags
+
+### Fixed
+
+- unquote glob in local.sh so rm clears extension folder correctly
+- use CommonJS require in ci metadata validation node script
+
+### Changed
+
+- extract maintainer release process to RELEASING.md
+- restructure CONTRIBUTING with contributor-first layout, maintainer section at the end
+- mark release section as maintainer-only and expand contributor workflow
+- remove unused source_folder variable from local.sh
+- fix scenario B description, expand commit table, fix local.sh path
+- update changelog.sh and CONTRIBUTING with full release step sequence
+- fix release order — push tag after CHANGELOG is on main
+
 ## [3.7.0](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.7.0) - 2026-06-09
 
 ### Added
