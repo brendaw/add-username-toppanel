@@ -99,26 +99,35 @@ When `shexli` is available in the active environment, `./scripts/build.sh` runs 
 
 ## Creating a release
 
-Releases are published automatically when a version tag is pushed.
+Releases are published automatically when a version tag is pushed. This project follows [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`).
 
-1. Push the tag:
+1. Run `./scripts/changelog.sh` to populate `[Unreleased]` and get the suggested next version:
 
-   ```bash
-   git tag vX.Y
-   git push origin vX.Y
+   ```
+   ✓ [Unreleased] updated with commits since v3.6
+
+   Suggested next version: v3.6.1 (patch bump)
+     When ready: git tag v3.6.1 && git push origin v3.6.1
    ```
 
-2. Run the changelog script — it detects the new tag and generates the versioned entry, also bumping the integer version in `metadata.json`:
+2. Push the suggested tag:
+
+   ```bash
+   git tag vX.Y.Z
+   git push origin vX.Y.Z
+   ```
+
+3. Run the changelog script again — it detects the new tag and generates the versioned entry, also bumping the integer version in `metadata.json`:
 
    ```bash
    ./scripts/changelog.sh
    ```
 
-3. Review the changes, then commit and push:
+4. Review the changes, then commit and push:
 
    ```bash
    git add CHANGELOG.md src/metadata.json
-   git commit -m "chore: release vX.Y"
+   git commit -m "chore: release vX.Y.Z"
    git push origin main
    ```
 
@@ -139,16 +148,17 @@ The workflow checks out `main` for the scripts, overlays `src/` from the specifi
 
 Run `./scripts/changelog.sh` at any point — the script detects the state of the repository and behaves accordingly:
 
-- **Latest tag already in CHANGELOG** (normal development): populates the `[Unreleased]` section with conventional commits since that tag, categorized by type. Will not overwrite existing manual content.
-- **New tag not yet in CHANGELOG** (after pushing a tag): generates the versioned `## [X.Y]` entry from commits between the previous and new tag, and bumps the integer `version` in `metadata.json`.
+- **Latest tag already in CHANGELOG** (normal development): populates the `[Unreleased]` section with conventional commits since that tag, categorized by type. Will not overwrite existing manual content. Also prints a suggested next version based on [Semantic Versioning](https://semver.org/).
+- **New tag not yet in CHANGELOG** (after pushing a tag): generates the versioned `## [X.Y.Z]` entry from commits between the previous and new tag, and bumps the integer `version` in `metadata.json`.
 
-Commits are categorized based on their [conventional commit](https://www.conventionalcommits.org/) prefix:
+Commits are categorized and influence the suggested version bump based on their [conventional commit](https://www.conventionalcommits.org/) prefix:
 
-| Prefix | CHANGELOG section |
-|---|---|
-| `feat:` | Added |
-| `fix:` | Fixed |
-| `docs:`, `chore:`, `ci:`, `refactor:` | Changed |
+| Prefix | CHANGELOG section | Version bump |
+|---|---|---|
+| `feat!:`, `fix!:`, or `BREAKING CHANGE` in body | — | MAJOR |
+| `feat:` | Added | MINOR |
+| `fix:` | Fixed | PATCH |
+| `docs:`, `chore:`, `ci:`, `refactor:` | Changed | PATCH |
 
 Commits without a conventional prefix are ignored by the script.
 
