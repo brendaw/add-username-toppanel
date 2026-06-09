@@ -33,6 +33,15 @@ Contributions are welcome — bug fixes, new features, documentation improvement
 4. After making changes, re-run `./scripts/local.sh` and restart GNOME Shell
    (`Alt+F2` → `r` on X11, or log out/in on Wayland).
 
+## Code style
+
+The repository includes an `.editorconfig` file. Most editors support it natively or via plugin — it enforces:
+
+- UTF-8 encoding and LF line endings across all files
+- 2-space indentation for `.js` and `.json`
+- Tab indentation for `.sh` scripts
+- Final newline and no trailing whitespace
+
 ## Linting
 
 Before submitting a PR, make sure the code passes the linter:
