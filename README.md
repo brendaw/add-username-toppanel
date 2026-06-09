@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="https://img.shields.io/github/stars/brendaw/add-username-toppanel">
-  <img src="https://img.shields.io/github/license/brendaw/add-username-toppanel">
+  <img src="https://badgen.net/github/stars/brendaw/add-username-toppanel">
+  <img src="https://badgen.net/github/license/brendaw/add-username-toppanel">
   <img alt="GNOME Shell" src="https://img.shields.io/badge/GNOME_Shell-45%2B-4A86CF?logo=gnome&logoColor=white"/>
-  <img src="https://img.shields.io/badge/status-active-success">
+  <img src="https://badgen.net/badge/status/active/green">
 </p>
 
 # Add Username to Top Panel
