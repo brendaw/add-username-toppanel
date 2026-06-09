@@ -19,8 +19,12 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
+
+      - name: Overlay src/ from tag (manual dispatch only)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git fetch --tags
+          git checkout ${{ inputs.tag }} -- src/
 
       - name: Pack extension
         run: bash scripts/build.sh
