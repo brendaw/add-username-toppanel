@@ -51,6 +51,20 @@ npm install
 npm run lint
 ```
 
+## GNOME Shell globals
+
+The following GNOME Shell globals are available in `src/` without needing to import them — the ESLint config declares them to avoid false `no-undef` errors:
+
+| Global | Description |
+|---|---|
+| `log` | Print a message to the GNOME Shell log |
+| `logError` | Print an error with stack trace to the log |
+| `print` / `printerr` | stdout/stderr (available in scripts context) |
+| `imports` | Legacy GJS module system (pre-ESM) |
+| `pkg` / `uuid` | Extension package metadata |
+
+The linter also enforces `prefer-const`, `no-var`, and ES2022 syntax. Unused function arguments are allowed if prefixed with `_`.
+
 ## CI checks
 
 Every pull request and push to `main` runs three automated checks:
