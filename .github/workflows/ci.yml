@@ -45,8 +45,8 @@ jobs:
 
       - name: Check required metadata fields
         run: |
-          node - <<'EOF'
-          import { readFileSync } from "fs";
+          node --input-type=commonjs - <<'EOF'
+          const { readFileSync } = require('fs');
           const meta = JSON.parse(readFileSync("src/metadata.json", "utf8"));
           const required = ["uuid", "name", "description", "shell-version", "version"];
           const missing = required.filter(k => !(k in meta));
