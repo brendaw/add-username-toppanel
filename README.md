@@ -69,6 +69,8 @@ it will appear after the next GNOME Shell boot.
 Contributions are welcome — new features, bug fixes, documentation improvements, and translations.
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow.
 
+The project uses GitHub Actions for automated linting, extension package validation with [shexli](https://pypi.org/project/shexli/), and GitHub Releases on every version tag.
+
 [Issues](https://github.com/brendaw/add-username-toppanel/issues) and
 [Pull Requests](https://github.com/brendaw/add-username-toppanel/pulls) are open for your contribution.
 
