@@ -5,6 +5,11 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release (e.g. v3.6)"
+        required: true
+        type: string
 
 jobs:
   release:
@@ -14,6 +19,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
 
       - name: Pack extension
         run: bash scripts/build.sh
@@ -21,7 +28,8 @@ jobs:
       - name: Extract changelog for this version
         id: changelog
         run: |
-          version="${GITHUB_REF_NAME#v}"
+          tag="${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}"
+          version="${tag#v}"
           notes=$(awk "/^## \[$version\]/{found=1; next} found && /^## \[/{exit} found{print}" CHANGELOG.md)
           {
             echo "notes<<EOF"
@@ -31,5 +39,6 @@ jobs:
 
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
           body: ${{ steps.changelog.outputs.notes }}
           files: build/add-username-toppanel@brendaw.com.zip
