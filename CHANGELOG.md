@@ -45,6 +45,13 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 
 
 
+
+## [3.8.1](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.8.1) - 2026-06-09
+
+### Fixed
+
+- retag to release commit so workflow reads correct CHANGELOG entry
+
 ## [3.8.0](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.8.0) - 2026-06-09
 
 ### Added
