@@ -8,18 +8,80 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 
 ### Added
 
-- ESLint setup with GNOME Shell config and `npm run lint` script
-- GitHub Actions CI workflow: lint and metadata validation on PRs
-- GitHub Actions release workflow: automated GitHub Release on version tags
-- GitHub issue templates (bug report, feature request) and PR template
-- CODEOWNERS file designating @brendaw as required reviewer
+- add semantic version bump suggestion to changelog.sh
 
 ### Changed
 
-- Rewrote README and added CONTRIBUTING guide
-- Reorganized shell scripts into `scripts/` directory
-- Renamed source file to camelCase (`usernameIndicator.js`)
-- Added `.editorconfig` to enforce coding style
+- remove overwrite guard from changelog.sh Unreleased section
+- update release flow and conventional commit table with semver bump guidance
+- mention CI/CD automation in README
+- document GNOME Shell globals and ESLint rules in CONTRIBUTING
+- document editorconfig conventions in CONTRIBUTING
+- document manual release workflow dispatch for existing tags
+- clarify shexli is optional locally but enforced in CI
+- document changelog.sh scenarios and conventional commit mapping
+- document CI checks in CONTRIBUTING
+- overlay src/ from tag on manual dispatch to support old releases
+- overlay src/ from tag on manual dispatch to support old releases
+- add tag input to workflow_dispatch for manual release trigger
+- allow manual workflow dispatch on release workflow
+- replace shields.io badges with badgen.net
+- add shexli setup instructions to CONTRIBUTING
+- add shexli extension package validation to build script and CI
+- rename scripts to build.sh, local.sh and changelog.sh
+- add update-changelog.sh script for automated changelog management
+- document linting setup and release process in CONTRIBUTING
+- fix broken infos and typo in changelog
+- update metadata description
+- add CODEOWNERS designating @brendaw as required reviewer
+- add GitHub issue templates and pull request template
+- add automated release workflow on version tags
+- add GitHub Actions workflow for lint and metadata validation
+- add ESLint with GNOME Shell config and npm lint script
+- add .editorconfig to enforce project coding style
+- rename UsernameIndicator.js to camelCase for JS/GNOME convention alignment
+- move shell scripts into scripts/ directory
+- fix grammar and username casing in AUTHORS
+
+
+## [3.7.0](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.7.0) - 2026-06-09
+
+### Added
+
+- add semantic version bump suggestion to changelog.sh
+
+### Changed
+
+- remove overwrite guard from changelog.sh Unreleased section
+- update release flow and conventional commit table with semver bump guidance
+- mention CI/CD automation in README
+- document GNOME Shell globals and ESLint rules in CONTRIBUTING
+- document editorconfig conventions in CONTRIBUTING
+- document manual release workflow dispatch for existing tags
+- clarify shexli is optional locally but enforced in CI
+- document changelog.sh scenarios and conventional commit mapping
+- document CI checks in CONTRIBUTING
+- overlay src/ from tag on manual dispatch to support old releases
+- overlay src/ from tag on manual dispatch to support old releases
+- add tag input to workflow_dispatch for manual release trigger
+- allow manual workflow dispatch on release workflow
+- replace shields.io badges with badgen.net
+- add shexli setup instructions to CONTRIBUTING
+- add shexli extension package validation to build script and CI
+- rename scripts to build.sh, local.sh and changelog.sh
+- add update-changelog.sh script for automated changelog management
+- document linting setup and release process in CONTRIBUTING
+- fix broken infos and typo in changelog
+- update metadata description
+- add CODEOWNERS designating @brendaw as required reviewer
+- add GitHub issue templates and pull request template
+- add automated release workflow on version tags
+- add GitHub Actions workflow for lint and metadata validation
+- add ESLint with GNOME Shell config and npm lint script
+- add .editorconfig to enforce project coding style
+- rename UsernameIndicator.js to camelCase for JS/GNOME convention alignment
+- move shell scripts into scripts/ directory
+- fix grammar and username casing in AUTHORS
 
 ## [3.6](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.6) - 2026-05-29
 
