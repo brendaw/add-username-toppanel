@@ -20,6 +20,38 @@ fi
 
 VERSION="${LATEST_TAG#v}"
 
+# Suggest MAJOR, MINOR or PATCH based on conventional commits between two refs
+suggest_bump() {
+	local from="$1" to="${2:-HEAD}"
+
+	if git log "${from}..${to}" --pretty=format:"%s%n%b" | grep -qE "^[a-z]+(\([^)]*\))?!:|^BREAKING[- ]CHANGE"; then
+		echo "major"
+		return
+	fi
+
+	if git log "${from}..${to}" --pretty=format:"%s" | grep -qE "^feat(\([^)]*\))?:"; then
+		echo "minor"
+		return
+	fi
+
+	echo "patch"
+}
+
+# Calculate next X.Y.Z version given current version string and bump type
+next_version() {
+	local current="$1" bump="$2"
+	local major minor patch
+
+	IFS='.' read -r major minor patch <<< "$current"
+	patch="${patch:-0}"
+
+	case "$bump" in
+		major) echo "$((major + 1)).0.0" ;;
+		minor) echo "${major}.$((minor + 1)).0" ;;
+		patch) echo "${major}.${minor}.$((patch + 1))" ;;
+	esac
+}
+
 # Collect commits between two refs, write categorized markdown to a file
 collect_commits_to_file() {
 	local from="$1" to="$2" out="$3"
@@ -85,7 +117,13 @@ if grep -q "^## \[$VERSION\]" "$CHANGELOG"; then
 	mv "$tmp_cl" "$CHANGELOG"
 	rm "$tmp_content"
 
+	bump=$(suggest_bump "$LATEST_TAG" "HEAD")
+	next_v=$(next_version "$VERSION" "$bump")
+
 	echo "✓ [Unreleased] updated with commits since $LATEST_TAG"
+	echo ""
+	echo "Suggested next version: v$next_v ($bump bump)"
+	echo "  When ready: git tag v$next_v && git push origin v$next_v"
 
 else
 	# New tag not in CHANGELOG → generate versioned entry and bump metadata
