@@ -22,6 +22,21 @@ jobs:
 
       - run: npm run lint
 
+  validate-package:
+    name: Validate extension package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build extension
+        run: bash scripts/build.sh
+
+      - name: Install shexli
+        run: pip install -U shexli
+
+      - name: Validate package
+        run: shexli build/add-username-toppanel@brendaw.com.zip
+
   validate:
     name: Validate metadata
     runs-on: ubuntu-latest

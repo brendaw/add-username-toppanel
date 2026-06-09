@@ -20,3 +20,11 @@ zip "../$packed_extension_file" *
 cd ..
 
 echo "Extension packed at $packed_extension_file"
+
+if command -v shexli &>/dev/null; then
+	echo "Validating extension package..."
+	shexli "$packed_extension_file"
+else
+	echo "Tip: install shexli to validate the package before uploading:"
+	echo "  pip install shexli && shexli $packed_extension_file"
+fi
