@@ -88,12 +88,6 @@ collect_commits_to_file() {
 if grep -q "^## \[$VERSION\]" "$CHANGELOG"; then
 	# Tag already documented → refresh [Unreleased] with commits since that tag
 
-	existing=$(awk '/^## \[Unreleased\]/{f=1;next} f&&/^## \[/{exit} f&&/^-/{print;exit}' "$CHANGELOG")
-	if [[ -n "$existing" ]]; then
-		echo "⚠  [Unreleased] already has content — not overwriting."
-		exit 0
-	fi
-
 	tmp_content=$(mktemp)
 	collect_commits_to_file "$LATEST_TAG" "HEAD" "$tmp_content"
 
