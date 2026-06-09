@@ -64,7 +64,7 @@ To generate the `.zip` file for publishing on GNOME Extensions:
 
 The packed file will be placed at `build/add-username-toppanel@brendaw.com.zip`.
 
-To also validate the package against GNOME Extensions requirements, install [shexli](https://pypi.org/project/shexli/) before building:
+To also validate the package against GNOME Extensions requirements, install [shexli](https://pypi.org/project/shexli/):
 
 ```bash
 virtualenv venv
@@ -72,7 +72,7 @@ virtualenv venv
 pip install -U shexli
 ```
 
-Once installed, `./scripts/build.sh` will run the validation automatically.
+When `shexli` is available in the active environment, `./scripts/build.sh` runs the validation automatically after packing. If it is not installed, the script skips validation and prints the command to set it up. Validation is always enforced in CI regardless of local setup.
 
 ## Creating a release
 
