@@ -103,7 +103,20 @@ The CI will then package the extension and create a GitHub Release with the chan
 
 **Keeping `[Unreleased]` up to date during development:**
 
-Run `./scripts/changelog.sh` at any point to populate the `[Unreleased]` section with conventional commits since the last tag. The script will not overwrite existing manual content.
+Run `./scripts/changelog.sh` at any point — the script detects the state of the repository and behaves accordingly:
+
+- **Latest tag already in CHANGELOG** (normal development): populates the `[Unreleased]` section with conventional commits since that tag, categorized by type. Will not overwrite existing manual content.
+- **New tag not yet in CHANGELOG** (after pushing a tag): generates the versioned `## [X.Y]` entry from commits between the previous and new tag, and bumps the integer `version` in `metadata.json`.
+
+Commits are categorized based on their [conventional commit](https://www.conventionalcommits.org/) prefix:
+
+| Prefix | CHANGELOG section |
+|---|---|
+| `feat:` | Added |
+| `fix:` | Fixed |
+| `docs:`, `chore:`, `ci:`, `refactor:` | Changed |
+
+Commits without a conventional prefix are ignored by the script.
 
 ## Submitting changes
 
