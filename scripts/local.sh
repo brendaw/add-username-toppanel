@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source_folder=src
-
 extensions_folder="$HOME/.local/share/gnome-shell/extensions"
 extension_uuid="add-username-toppanel@brendaw.com"
 extension_folder="$extensions_folder/$extension_uuid"
