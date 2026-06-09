@@ -19,7 +19,7 @@ Contributions are welcome — bug fixes, new features, documentation improvement
 2. Install the extension locally for testing:
 
    ```bash
-   ./scripts/update-local.sh
+   ./scripts/local.sh
    ```
 
    This copies the files from `src/` to `~/.local/share/gnome-shell/extensions/add-username-toppanel@brendaw.com`.
@@ -30,7 +30,7 @@ Contributions are welcome — bug fixes, new features, documentation improvement
    gnome-extensions enable add-username-toppanel@brendaw.com
    ```
 
-4. After making changes, re-run `./scripts/update-local.sh` and restart GNOME Shell
+4. After making changes, re-run `./scripts/local.sh` and restart GNOME Shell
    (`Alt+F2` → `r` on X11, or log out/in on Wayland).
 
 ## Linting
@@ -49,7 +49,7 @@ This is also enforced automatically by CI on every pull request.
 To generate the `.zip` file for publishing on GNOME Extensions:
 
 ```bash
-./scripts/pack-extension.sh
+./scripts/build.sh
 ```
 
 The packed file will be placed at `build/add-username-toppanel@brendaw.com.zip`.
@@ -68,7 +68,7 @@ Releases are published automatically when a version tag is pushed.
 2. Run the changelog script — it detects the new tag and generates the versioned entry, also bumping the integer version in `metadata.json`:
 
    ```bash
-   ./scripts/update-changelog.sh
+   ./scripts/changelog.sh
    ```
 
 3. Review the changes, then commit and push:
@@ -83,13 +83,13 @@ The CI will then package the extension and create a GitHub Release with the chan
 
 **Keeping `[Unreleased]` up to date during development:**
 
-Run `./scripts/update-changelog.sh` at any point to populate the `[Unreleased]` section with conventional commits since the last tag. The script will not overwrite existing manual content.
+Run `./scripts/changelog.sh` at any point to populate the `[Unreleased]` section with conventional commits since the last tag. The script will not overwrite existing manual content.
 
 ## Submitting changes
 
 1. Fork the repository and create a branch for your change
 2. Make your changes in `src/`
-3. Test locally with `update-local.sh`
+3. Test locally with `local.sh`
 4. Open a Pull Request describing what changed and why
 
 For bug reports or feature requests, open an [Issue](https://github.com/brendaw/add-username-toppanel/issues) first.

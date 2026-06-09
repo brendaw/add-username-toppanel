@@ -11,7 +11,7 @@
 
 ## Checklist
 
-- [ ] Tested locally with `./scripts/update-local.sh`
+- [ ] Tested locally with `./scripts/local.sh`
 - [ ] GNOME Shell version(s) tested: <!-- e.g. 48, 49 -->
 - [ ] `CHANGELOG.md` updated (if applicable)
 - [ ] `metadata.json` shell-version updated (if adding new GNOME version support)

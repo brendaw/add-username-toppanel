@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Pack extension
-        run: bash scripts/pack-extension.sh
+        run: bash scripts/build.sh
 
       - name: Extract changelog for this version
         id: changelog
