@@ -9,7 +9,7 @@ extension_folder="$extensions_folder/$extension_uuid"
 echo "$extension_folder"
 mkdir -p "$extension_folder"
 
-rm -rf "$extension_folder/*"
+rm -rf "$extension_folder/"*
 
 cp -r src/* $extension_folder
 
