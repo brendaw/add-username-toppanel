@@ -42,7 +42,17 @@ npm install
 npm run lint
 ```
 
-This is also enforced automatically by CI on every pull request.
+## CI checks
+
+Every pull request and push to `main` runs three automated checks:
+
+| Check | What it does |
+|---|---|
+| **Lint** | Runs `npm run lint` against `src/` |
+| **Validate extension package** | Builds the `.zip` with `scripts/build.sh` and validates it with `shexli` |
+| **Validate metadata** | Checks that `src/metadata.json` has all required fields: `uuid`, `name`, `description`, `shell-version`, `version` |
+
+All three must pass before a PR can be merged.
 
 ## Building for release
 
