@@ -137,7 +137,7 @@ The workflow checks out `main` for the scripts, overlays `src/` from the specifi
 Run `./scripts/changelog.sh` at any point — the script detects the state of the repository and behaves accordingly:
 
 - **Latest tag already in CHANGELOG** (normal development): populates the `[Unreleased]` section with conventional commits since that tag, categorized by type. Overwrites any existing content in `[Unreleased]`. Also prints a suggested next version based on [Semantic Versioning](https://semver.org/).
-- **New tag not yet in CHANGELOG** (after `git tag vX.Y.Z`): generates the versioned `## [X.Y.Z]` entry from commits between the previous and new tag, and bumps the integer `version` in `metadata.json`.
+- **New tag not yet in CHANGELOG** (after `git tag vX.Y.Z`): generates the versioned `## [X.Y.Z]` entry from commits between the previous and new tag. Bumps the integer `version` in `metadata.json` only if files in `src/` changed — since that is the number the GNOME Extensions website uses to detect updates.
 
 Commits are categorized and influence the suggested version bump based on their [conventional commit](https://www.conventionalcommits.org/) prefix:
 

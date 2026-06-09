@@ -158,16 +158,29 @@ else
 	mv "$tmp_cl" "$CHANGELOG"
 	rm "$tmp_content"
 
-	current_v=$(node --input-type=commonjs -p "JSON.parse(require('fs').readFileSync('./src/metadata.json','utf8')).version")
-	new_v=$((current_v + 1))
-	sed -i.bak "s/\"version\": $current_v/\"version\": $new_v/" src/metadata.json
-	rm -f src/metadata.json.bak
+	if [[ -n "$PREV_TAG" ]]; then
+		src_changed=$(git diff --name-only "$PREV_TAG" "$LATEST_TAG" -- src/)
+	else
+		src_changed="yes"
+	fi
 
-	echo "✓ Generated entry for $LATEST_TAG (metadata.json: $current_v → $new_v)"
-	echo ""
-	echo "Steps 1-2 done (tag created, changelog generated). To finish the release:"
-	echo "  3. git add CHANGELOG.md src/metadata.json"
-	echo "  4. git commit -m \"chore: release v$VERSION\""
+	if [[ -n "$src_changed" ]]; then
+		current_v=$(node --input-type=commonjs -p "JSON.parse(require('fs').readFileSync('./src/metadata.json','utf8')).version")
+		new_v=$((current_v + 1))
+		sed -i.bak "s/\"version\": $current_v/\"version\": $new_v/" src/metadata.json
+		rm -f src/metadata.json.bak
+		echo "✓ Generated entry for $LATEST_TAG (metadata.json: $current_v → $new_v)"
+		echo ""
+		echo "Steps 1-2 done (tag created, changelog generated). To finish the release:"
+		echo "  3. git add CHANGELOG.md src/metadata.json"
+		echo "  4. git commit -m \"chore: release v$VERSION\""
+	else
+		echo "✓ Generated entry for $LATEST_TAG (no src/ changes — metadata.json version unchanged)"
+		echo ""
+		echo "Steps 1-2 done (tag created, changelog generated). To finish the release:"
+		echo "  3. git add CHANGELOG.md"
+		echo "  4. git commit -m \"chore: release v$VERSION\""
+	fi
 	echo "  5. git push origin main            # CHANGELOG must be on main before the tag"
 	echo "  6. git push origin $LATEST_TAG     # triggers the release workflow"
 fi
