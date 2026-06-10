@@ -88,6 +88,39 @@ If you need to run the steps individually:
 
 The key constraints: the tag must point to the release commit (step 5), and `main` must be pushed before the tag (step 6), so the workflow checks out the correct state.
 
+## Fixing a failed release
+
+The release workflow runs CI checks before creating the GitHub Release. If the checks fail, no release artifact is published — the tag exists on the remote but no `.zip` reaches users.
+
+The recovery path depends on what failed.
+
+### CI config or scripts failure (no `src/` change needed)
+
+Fix the issue in `main`, then re-trigger the release workflow manually via `workflow_dispatch`. The workflow reads scripts and workflow files from `main` and overlays `src/` from the original tag, so the tag does not need to move:
+
+1. Fix the issue and push to `main`
+2. Go to **Actions → Release → Run workflow**
+3. Enter the original tag (e.g. `v3.9.0`) in the **"Tag to release"** field
+4. Click **Run workflow**
+
+### Source code failure (`src/` needs a fix)
+
+Fix the code, commit, and move the tag to the new commit. Because no GitHub Release was published yet, force-pushing the tag is acceptable:
+
+```bash
+# fix the issue, then:
+git add src/...
+git commit -m "fix: ..."
+
+git tag -f vX.Y.Z
+git push origin main
+git push --force origin vX.Y.Z
+```
+
+Pushing the tag again re-triggers the release workflow automatically.
+
+---
+
 ## Recreating or backfilling a release for an existing tag
 
 If a GitHub Release needs to be (re)generated for an older tag, trigger the workflow manually:
