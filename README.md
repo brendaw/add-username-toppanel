@@ -73,7 +73,7 @@ This extension supports GNOME Shell 45 to 50.
 
 > For GNOME Shell 3.12 to 44, use a [legacy release](https://github.com/brendaw/add-username-toppanel/releases) (v2.x or earlier).
 
-## Known Issues
+## Troubleshooting
 
 ### Extension shows "Unknown" instead of my name
 
@@ -84,6 +84,8 @@ Check your entry in `/etc/passwd` and fill in the display name field as shown be
 it will appear after the next GNOME Shell boot.
 
 ![image](https://user-images.githubusercontent.com/3674847/210005925-bd7c1aab-5d05-4650-987f-869fda41e8a6.png)
+
+For other problems, check the [open issues](https://github.com/brendaw/add-username-toppanel/issues) or open a new one.
 
 ## Contributing
 
