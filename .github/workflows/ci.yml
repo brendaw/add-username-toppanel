@@ -35,7 +35,12 @@ jobs:
         run: pip install -U shexli
 
       - name: Validate package
-        run: shexli build/add-username-toppanel@brendaw.com.zip
+        run: |
+          shexli build/add-username-toppanel@brendaw.com.zip | tee /tmp/shexli_out.txt
+          if grep -qE "[1-9][0-9]* warning" /tmp/shexli_out.txt; then
+            echo "shexli reported warnings — failing build"
+            exit 1
+          fi
 
   validate:
     name: Validate metadata
