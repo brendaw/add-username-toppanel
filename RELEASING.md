@@ -62,7 +62,14 @@ If you need to run the steps individually:
    ✓ Generated entry for vX.Y.Z (metadata.json: 19 → 20)
    ```
 
-4. Commit the changes and move the tag to the release commit:
+4. If files in `src/` changed, bump the integer `version` in `metadata.json` manually:
+
+   ```bash
+   # replace <current> with the existing value
+   sed -i "s/\"version\": <current>/\"version\": <new>/" src/metadata.json
+   ```
+
+5. Commit the changes and move the tag to the release commit:
 
    ```bash
    git add CHANGELOG.md src/metadata.json
@@ -72,14 +79,14 @@ If you need to run the steps individually:
 
    The `git tag -f` is required because the tag was created before the CHANGELOG commit — it must point to the release commit so the workflow reads the correct CHANGELOG.
 
-5. Push `main` and then the tag:
+6. Push `main` and then the tag:
 
    ```bash
    git push origin main
    git push origin vX.Y.Z
    ```
 
-The key constraints: the tag must point to the release commit (step 4), and `main` must be pushed before the tag (step 5), so the workflow checks out the correct state.
+The key constraints: the tag must point to the release commit (step 5), and `main` must be pushed before the tag (step 6), so the workflow checks out the correct state.
 
 ## Recreating or backfilling a release for an existing tag
 

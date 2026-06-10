@@ -81,6 +81,12 @@ git tag "$NEW_TAG"
 echo "→ Generating CHANGELOG entry..."
 RELEASING=1 ./scripts/changelog.sh
 
+if [[ -n "$src_preview" ]]; then
+	echo "→ Bumping metadata.json: $current_meta_v → $((current_meta_v + 1))..."
+	sed -i.bak "s/\"version\": $current_meta_v/\"version\": $((current_meta_v + 1))/" src/metadata.json
+	rm -f src/metadata.json.bak
+fi
+
 echo ""
 echo "Diff summary:"
 git diff --stat

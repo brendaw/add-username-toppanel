@@ -114,38 +114,11 @@ else
 	mv "$tmp_cl" "$CHANGELOG"
 	rm "$tmp_content"
 
-	if [[ -n "$PREV_TAG" ]]; then
-		src_changed=$(git diff --name-only "$PREV_TAG" "$LATEST_TAG" -- src/)
-	else
-		src_changed="yes"
-	fi
-
-	if [[ -n "$src_changed" ]]; then
-		current_v=$(node --input-type=commonjs -p "JSON.parse(require('fs').readFileSync('./src/metadata.json','utf8')).version")
-		new_v=$((current_v + 1))
-		sed -i.bak "s/\"version\": $current_v/\"version\": $new_v/" src/metadata.json
-		rm -f src/metadata.json.bak
-		if [[ -z "$RELEASING" ]]; then
-			echo "✓ Generated entry for $LATEST_TAG (metadata.json: $current_v → $new_v)"
-		else
-			echo "✓ Generated entry for $LATEST_TAG"
-		fi
-	else
-		echo "✓ Generated entry for $LATEST_TAG (no src/ changes — metadata.json version unchanged)"
-	fi
+	echo "✓ Generated entry for $LATEST_TAG"
 
 	if [[ -z "$RELEASING" ]]; then
 		echo ""
-		echo "Review the changes, then:"
-		if [[ -n "$src_changed" ]]; then
-			echo "  git add CHANGELOG.md src/metadata.json"
-		else
-			echo "  git add CHANGELOG.md"
-		fi
-		echo "  git commit -m \"chore: release $LATEST_TAG\""
-		echo "  git push origin main"
-		echo "  git push origin $LATEST_TAG"
-		echo ""
+		echo "Review the CHANGELOG, then complete the release following RELEASING.md."
 		echo "Tip: use ./scripts/release.sh to automate this flow."
 	fi
 fi
