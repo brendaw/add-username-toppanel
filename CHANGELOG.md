@@ -47,6 +47,13 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 
 
 
+
+## [3.9.1](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.9.1) - 2026-06-10
+
+### Changed
+
+- fail on shexli warnings, not just errors
+
 ## [3.9.0](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.9.0) - 2026-06-10
 
 ### Added
