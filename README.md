@@ -3,6 +3,7 @@
   <img src="https://badgen.net/github/license/brendaw/add-username-toppanel">
   <img alt="GNOME Shell" src="https://img.shields.io/badge/GNOME_Shell-45%2B-4A86CF?logo=gnome&logoColor=white"/>
   <img src="https://badgen.net/badge/status/active/green">
+  <a href="https://github.com/brendaw/add-username-toppanel/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/brendaw/add-username-toppanel/actions/workflows/ci.yml/badge.svg"></a>
 </p>
 
 # Add Username to Top Panel
