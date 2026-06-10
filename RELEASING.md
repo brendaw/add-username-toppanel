@@ -92,6 +92,14 @@ If a GitHub Release needs to be (re)generated for an older tag, trigger the work
 
 The workflow checks out `main` for the scripts, overlays `src/` from the specified tag, builds the package, and creates or updates the GitHub Release with the changelog notes for that version.
 
+## When not to create a release
+
+Releases exist to distribute a new version of the extension to users. Changes that do not touch `src/` — documentation updates, CI fixes, script improvements, repository housekeeping — do not warrant a new tag or GitHub Release.
+
+For those changes: commit and push to `main` normally. Run `./scripts/changelog.sh` to capture them in `[Unreleased]`, and they will be included in the next release when an actual extension change is ready.
+
+Creating a patch release purely for repository changes generates noise for users and produces a `.zip` artifact identical to the previous version.
+
 ## Keeping `[Unreleased]` up to date during development
 
 Run `./scripts/changelog.sh` at any point to refresh the `[Unreleased]` section with conventional commits since the last tag. The script detects the state of the repository and behaves accordingly:
