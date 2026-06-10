@@ -4,6 +4,9 @@
   "name": "Add Username to Top Panel",
   "original-authors": ["william@brendaw.net"],
   "shell-version": ["50", "49", "48", "47", "46", "45"],
+  "donations": {
+    "buymeacoffee": "brendaw"
+  },
   "url": "https://github.com/brendaw/add-username-toppanel",
   "uuid": "add-username-toppanel@brendaw.com",
   "version": 21
