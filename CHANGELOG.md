@@ -46,6 +46,24 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 
 
 
+
+## [3.9.0](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.9.0) - 2026-06-10
+
+### Added
+
+- show metadata.json version preview in release.sh begore confirmation
+
+### Changed
+
+- move metadata.json version bump from changelog.sh to release.sh
+- fix metadata version to current on GNOME Extensions
+- add donations field to metadata.json with Buy Me a Coffee link
+- add Buy Me a Coffee support section to README
+- add FUNDING.yml with Buy Me a Coffee link
+- document when not to create a release in RELEASING.md
+- add warning emoji to version lag notice in README
+- move version lag note to blockquote in README
+
 ## [3.8.1](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.8.1) - 2026-06-09
 
 ### Fixed
