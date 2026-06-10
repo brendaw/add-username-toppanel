@@ -13,8 +13,12 @@ on:
         type: string
 
 jobs:
+  checks:
+    uses: ./.github/workflows/ci-checks.yml
+
   release:
     name: Create GitHub Release
+    needs: checks
     runs-on: ubuntu-latest
     permissions:
       contents: write

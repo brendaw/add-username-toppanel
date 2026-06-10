@@ -7,57 +7,5 @@ on:
     branches: [main]
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: npm
-
-      - run: npm ci
-
-      - run: npm run lint
-
-  validate-package:
-    name: Validate extension package
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Build extension
-        run: bash scripts/build.sh
-
-      - name: Install shexli
-        run: pip install -U shexli
-
-      - name: Validate package
-        run: |
-          shexli build/add-username-toppanel@brendaw.com.zip | tee /tmp/shexli_out.txt
-          if grep -qE "[1-9][0-9]* warning" /tmp/shexli_out.txt; then
-            echo "shexli reported warnings — failing build"
-            exit 1
-          fi
-
-  validate:
-    name: Validate metadata
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Check required metadata fields
-        run: |
-          node --input-type=commonjs - <<'EOF'
-          const { readFileSync } = require('fs');
-          const meta = JSON.parse(readFileSync("src/metadata.json", "utf8"));
-          const required = ["uuid", "name", "description", "shell-version", "version"];
-          const missing = required.filter(k => !(k in meta));
-          if (missing.length) {
-            console.error("Missing required fields in metadata.json:", missing.join(", "));
-            process.exit(1);
-          }
-          console.log("metadata.json is valid");
-          EOF
+  checks:
+    uses: ./.github/workflows/ci-checks.yml
