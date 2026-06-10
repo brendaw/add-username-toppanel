@@ -26,7 +26,9 @@ Simply add your display name to the top panel Quick Settings menu in GNOME Shell
   <img src="https://github.com/user-attachments/assets/d15de748-11b8-4a85-ad34-ec7786547b3c" width="250" alt="Install from GNOME Extensions">
 </a>
 
-Requires [GNOME Shell Integration](https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome) in your browser. The version on GNOME Extensions may lag behind the latest release while the submission is under review — for the newest version, install manually using the steps below.
+Requires [GNOME Shell Integration](https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome) in your browser.
+
+> The version on GNOME Extensions may lag behind the latest release while the submission is under review. For the newest version, install manually using the steps below.
 
 ### Manual
 
