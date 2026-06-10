@@ -147,7 +147,7 @@ Run `./scripts/changelog.sh` at any point to refresh the `[Unreleased]` section 
 - **Latest tag already in CHANGELOG** (normal development): populates `[Unreleased]` with commits since that tag, categorized by type. Overwrites any existing content.
 - **New tag not yet in CHANGELOG** (after `git tag vX.Y.Z`): generates the versioned `## [X.Y.Z]` entry. Bumps the integer `version` in `metadata.json` only if files in `src/` changed — since that is the number the GNOME Extensions website uses to detect updates.
 
-Commits are categorized and influence the suggested version bump based on their [conventional commit](https://www.conventionalcommits.org/) prefix:
+Commits are categorized and influence the suggested version bump based on their [conventional commit](https://www.conventionalcommits.org/) prefix (`type: description`):
 
 | Prefix | CHANGELOG section | Version bump |
 |---|---|---|

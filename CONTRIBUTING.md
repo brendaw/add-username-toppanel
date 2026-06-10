@@ -47,6 +47,27 @@ For bug reports or feature requests, [open an Issue](https://github.com/brendaw/
 
 You do not need to bump versions, update `metadata.json`, or run `./scripts/changelog.sh` — versioning and releases are handled by the maintainer after the PR is merged.
 
+## Commit messages
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/). Every commit message must follow the format:
+
+```
+type: short description
+```
+
+| Type | When to use |
+|---|---|
+| `feat` | New feature or behavior visible to users |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `chore` | Tooling, dependencies, configuration |
+| `ci` | CI/CD workflow changes |
+| `refactor` | Code restructuring without behavior change |
+| `style` | Formatting, whitespace |
+| `test` | Tests |
+
+The type determines how the commit appears in the CHANGELOG and influences the version bump on the next release.
+
 ## Code style
 
 The repository includes an `.editorconfig` file. Most editors support it natively or via plugin — it enforces:
