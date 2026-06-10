@@ -78,6 +78,14 @@ The project uses GitHub Actions for automated linting, extension package validat
 [Issues](https://github.com/brendaw/add-username-toppanel/issues) and
 [Pull Requests](https://github.com/brendaw/add-username-toppanel/pulls) are open for your contribution.
 
+## Support
+
+If this extension is useful to you, consider buying me a coffee:
+
+<a href="https://buymeacoffee.com/brendaw">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" alt="Buy Me a Coffee">
+</a>
+
 ## Contributors
 
 See the [AUTHORS](AUTHORS.md) file for the amazing contributors of this project.
