@@ -62,6 +62,14 @@ if [[ "$BUMP" == "manual" ]]; then
 else
 	echo "Preparing release $NEW_TAG ($BUMP bump from $LATEST_TAG)"
 fi
+
+src_preview=$(git diff --name-only "$LATEST_TAG" HEAD -- src/)
+if [[ -n "$src_preview" ]]; then
+	current_meta_v=$(node --input-type=commonjs -p "JSON.parse(require('fs').readFileSync('./src/metadata.json','utf8')).version")
+	echo "  metadata.json: $current_meta_v → $((current_meta_v + 1))"
+else
+	echo "  metadata.json: unchanged (no src/ changes)"
+fi
 echo ""
 read -r -p "Create tag and generate CHANGELOG entry? [y/N] " confirm
 [[ "$confirm" =~ ^[Yy]$ ]] || { echo "Aborted."; exit 0; }

@@ -125,7 +125,11 @@ else
 		new_v=$((current_v + 1))
 		sed -i.bak "s/\"version\": $current_v/\"version\": $new_v/" src/metadata.json
 		rm -f src/metadata.json.bak
-		echo "✓ Generated entry for $LATEST_TAG (metadata.json: $current_v → $new_v)"
+		if [[ -z "$RELEASING" ]]; then
+			echo "✓ Generated entry for $LATEST_TAG (metadata.json: $current_v → $new_v)"
+		else
+			echo "✓ Generated entry for $LATEST_TAG"
+		fi
 	else
 		echo "✓ Generated entry for $LATEST_TAG (no src/ changes — metadata.json version unchanged)"
 	fi
