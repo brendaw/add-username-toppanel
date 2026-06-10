@@ -31,7 +31,23 @@ Requires [GNOME Shell Integration](https://wiki.gnome.org/Projects/GnomeShellInt
 
 > ⚠️ The version on GNOME Extensions may lag behind the latest release while the submission is under review. For the newest version, install manually using the steps below.
 
-### Manual
+### From a release ZIP
+
+1. Download the latest `.zip` from the [Releases page](https://github.com/brendaw/add-username-toppanel/releases/latest)
+
+2. Install the extension:
+
+   ```bash
+   gnome-extensions install add-username-toppanel@brendaw.com.zip
+   ```
+
+3. Log out and back in, then enable the extension:
+
+   ```bash
+   gnome-extensions enable add-username-toppanel@brendaw.com
+   ```
+
+### From source
 
 1. Clone the repository:
 
