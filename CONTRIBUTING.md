@@ -9,6 +9,7 @@ For bug reports or feature requests, [open an Issue](https://github.com/brendaw/
 - GNOME Shell installed locally (45+)
 - Git
 - Node.js (for linting)
+- Python 3 with pip (optional, for local extension package validation)
 
 ## How to contribute
 
@@ -43,7 +44,15 @@ For bug reports or feature requests, [open an Issue](https://github.com/brendaw/
    npm run lint
    ```
 
-6. Open a Pull Request against `main` describing what changed and why.
+6. Optionally, validate the extension package locally using the same tool as CI:
+
+   ```bash
+   bash scripts/build.sh
+   pip install shexli==0.2.1
+   shexli build/add-username-toppanel@brendaw.com.zip
+   ```
+
+7. Open a Pull Request against `main` describing what changed and why.
 
 You do not need to bump versions, update `metadata.json`, or run `./scripts/changelog.sh` — versioning and releases are handled by the maintainer after the PR is merged.
 
