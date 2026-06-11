@@ -99,11 +99,25 @@ The project uses GitHub Actions for automated linting, extension package validat
 
 ## Support
 
-If this extension is useful to you, consider buying me a coffee:
+If this extension is useful to you, consider supporting it:
 
-<a href="https://buymeacoffee.com/brendaw">
-  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" alt="Buy Me a Coffee">
-</a>
+<p>
+  <a href="https://github.com/sponsors/brendaw">
+    <img src="https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-ea4aaa?logo=github&logoColor=white" width="200" alt="GitHub Sponsors">
+  </a>
+</p>
+
+<p>
+  <a href="https://buymeacoffee.com/brendaw">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" alt="Buy Me a Coffee">
+  </a>
+</p>
+
+<p>
+  <a href="https://ko-fi.com/brendaw">
+    <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=3" width="200" alt="Ko-fi">
+  </a>
+</p>
 
 ## Contributors
 

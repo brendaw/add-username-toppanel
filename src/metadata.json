@@ -5,7 +5,9 @@
   "original-authors": ["william@brendaw.net"],
   "shell-version": ["50", "49", "48", "47", "46", "45"],
   "donations": {
-    "buymeacoffee": "brendaw"
+    "buymeacoffee": "brendaw",
+    "kofi": "brendaw",
+    "github": "brendaw"
   },
   "url": "https://github.com/brendaw/add-username-toppanel",
   "uuid": "add-username-toppanel@brendaw.com",
