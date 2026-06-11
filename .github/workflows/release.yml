@@ -19,7 +19,7 @@ jobs:
   release:
     name: Create GitHub Release
     needs: checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     steps:
