@@ -48,6 +48,19 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 
 
 
+
+## [3.9.2](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.9.2) - 2026-06-11
+
+### Changed
+
+- add Ko-fi and GitHub Sponsors to funding, metadata, and README
+- rename Known Issues to Troubleshooting and link to open issues
+- add installation from release ZIP to README
+- add CI status badge to README
+- document conventional commit format
+- disable blank issues
+- document recovery paths for failed releases
+
 ## [3.9.1](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.9.1) - 2026-06-10
 
 ### Changed
