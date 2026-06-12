@@ -37,6 +37,14 @@ For bug reports or feature requests, [open an Issue](https://github.com/brendaw/
 4. Make your changes in `src/`. After each change, re-run `./scripts/local.sh` and restart GNOME Shell
    (`Alt+F2` → `r` on X11, or log out/in on Wayland).
 
+   To view GNOME Shell logs while developing:
+
+   ```bash
+   journalctl /usr/bin/gnome-shell -f
+   ```
+
+   To open Looking Glass (the built-in inspector): `Alt+F2` → type `lg`.
+
 5. Run the linter before opening a PR:
 
    ```bash

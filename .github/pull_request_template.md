@@ -13,5 +13,6 @@
 
 - [ ] Tested locally with `./scripts/local.sh`
 - [ ] GNOME Shell version(s) tested: <!-- e.g. 48, 49 -->
-- [ ] `CHANGELOG.md` updated (if applicable)
-- [ ] `metadata.json` shell-version updated (if adding new GNOME version support)
+- [ ] `metadata.json` shell-version updated (only if adding support for a new GNOME Shell version)
+
+<!-- CHANGELOG and versioning are handled by the maintainer after merge -->
