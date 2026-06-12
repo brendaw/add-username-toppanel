@@ -22,6 +22,15 @@ This document describes the release process for maintainers of Add Username to T
 | Post-merge maintenance — keep `[Unreleased]` current as PRs land | Maintainer | `changelog.sh` |
 | Release — when ready to publish a new version | Maintainer | `release.sh` |
 
+## metadata.json fields
+
+| Field | Notes |
+|---|---|
+| `_generated` | Injected by SweetTooth (GNOME Extensions backend) on submission. Keep it in the repo as-is — the website overwrites it on upload. |
+| `version` | Integer incremented by `changelog.sh` on each release that touches `src/`. Used by GNOME Extensions to detect updates. Unrelated to the semver tag. |
+| `shell-version` | Array of supported GNOME Shell versions. Add a new entry when the extension is tested and confirmed working on a new release. |
+| `donations` | Usernames per platform (`buymeacoffee`, `kofi`, `github`). Displayed as donation links on the GNOME Extensions page. |
+
 ## Building for release
 
 To generate the `.zip` file for publishing on GNOME Extensions:
