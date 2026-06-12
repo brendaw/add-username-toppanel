@@ -52,6 +52,8 @@ For bug reports or feature requests, [open an Issue](https://github.com/brendaw/
    shexli build/add-username-toppanel@brendaw.com.zip
    ```
 
+   shexli performs static analysis on the `.zip` and checks for common issues flagged during GNOME Extensions review, such as deprecated imports (`ByteArray`, `Lang`, `Mainloop`), synchronous file or subprocess APIs, minified/obfuscated code, bundled binaries, and metadata problems. Any finding reported as a warning causes CI to fail — the same threshold applies locally.
+
 7. Open a Pull Request against `main` describing what changed and why.
 
 You do not need to bump versions, update `metadata.json`, or run `./scripts/changelog.sh` — versioning and releases are handled by the maintainer after the PR is merged.
