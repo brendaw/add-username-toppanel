@@ -102,6 +102,15 @@ The following GNOME Shell globals are available in `src/` without needing to imp
 
 The linter also enforces `prefer-const`, `no-var`, and ES2022 syntax. Unused function arguments are allowed if prefixed with `_`.
 
+## Scripts
+
+| Script | Purpose |
+|---|---|
+| `scripts/local.sh` | Copies `src/` directly to `~/.local/share/gnome-shell/extensions/` for local testing — use this during development after every change |
+| `scripts/build.sh` | Packs `src/` into a `.zip` at `build/add-username-toppanel@brendaw.com.zip` — used by CI and for manual shexli validation |
+
+`changelog.sh` and `release.sh` are maintainer-only scripts and are not part of the contributor workflow.
+
 ## CI checks
 
 Every pull request and push to `main` runs three automated checks:
