@@ -2,6 +2,17 @@
 
 This document describes the release process for maintainers of Add Username to Top Panel.
 
+## Scripts overview
+
+| Script | Purpose |
+|---|---|
+| `scripts/build.sh` | Packs `src/` into a `.zip` for distribution; runs shexli validation automatically if installed |
+| `scripts/local.sh` | Copies `src/` to the local GNOME extensions folder for development testing |
+| `scripts/changelog.sh` | Updates `CHANGELOG.md` and bumps the integer `version` in `metadata.json`; called by `release.sh` |
+| `scripts/release.sh` | Orchestrates the full release: version detection, changelog, commit, tag, and push |
+
+`local.sh` is for development. `build.sh`, `changelog.sh`, and `release.sh` are part of the release flow.
+
 ## Building for release
 
 To generate the `.zip` file for publishing on GNOME Extensions:
@@ -17,7 +28,7 @@ To also validate the package against GNOME Extensions requirements, install [she
 ```bash
 virtualenv venv
 . venv/bin/activate
-pip install -U shexli
+pip install shexli==0.2.1
 ```
 
 When `shexli` is available in the active environment, `./scripts/build.sh` runs the validation automatically after packing. If it is not installed, the script skips validation and prints the command to set it up. Validation is always enforced in CI regardless of local setup.
