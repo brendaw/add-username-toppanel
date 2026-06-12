@@ -13,6 +13,15 @@ This document describes the release process for maintainers of Add Username to T
 
 `local.sh` is for development. `build.sh`, `changelog.sh`, and `release.sh` are part of the release flow.
 
+### Lifecycle
+
+| Stage | Who | Script |
+|---|---|---|
+| Development — test changes locally after each edit | Contributor | `local.sh` |
+| Pre-PR validation — optional static analysis before opening a PR | Contributor | `build.sh` + shexli |
+| Post-merge maintenance — keep `[Unreleased]` current as PRs land | Maintainer | `changelog.sh` |
+| Release — when ready to publish a new version | Maintainer | `release.sh` |
+
 ## Building for release
 
 To generate the `.zip` file for publishing on GNOME Extensions:
