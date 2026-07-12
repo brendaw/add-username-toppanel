@@ -10,8 +10,12 @@ export class UsernameIndicator extends SystemIndicator {
 
     // Create the text label for a new indicator (child)
     this._indicator = this._addIndicator();
+
+    let username = GLib.get_real_name();
+    username = username == "Unknown" ? GLib.get_user_name(): username;
+
     const usernameLabel = new St.Label({
-      text: GLib.get_real_name() + "    ",
+      text: username + "    ",
       y_align: Clutter.ActorAlign.CENTER,
     });
     this.add_child(usernameLabel);
