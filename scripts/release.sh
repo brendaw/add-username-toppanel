@@ -4,6 +4,7 @@ set -e
 REPO_URL="https://github.com/brendaw/add-username-toppanel"
 CHANGELOG="CHANGELOG.md"
 METADATA="src/metadata.json"
+DATE=$(date +%Y-%m-%d)
 DRY_RUN=0
 
 for arg in "$@"; do
@@ -34,6 +35,36 @@ next_version() {
 		minor) echo "${major}.$((minor + 1)).0" ;;
 		patch) echo "${major}.${minor}.$((patch + 1))" ;;
 	esac
+}
+
+collect_changelog_entry() {
+	local from="$1" to="$2"
+	local -a added=() fixed=() changed=()
+
+	while IFS= read -r msg; do
+		[[ -z "$msg" ]] && continue
+		local type body
+		type=$(echo "$msg" | sed 's/^\([a-z]*\)[:(].*/\1/')
+		body=$(echo "$msg" | sed 's/^[^:]*: *//')
+		case "$type" in
+			feat)                                          added+=("- $body") ;;
+			fix)                                           fixed+=("- $body") ;;
+			docs|chore|ci|refactor|style|build|perf|test) changed+=("- $body") ;;
+		esac
+	done < <(git log "${from}..${to}" --pretty=format:"%s")
+
+	if (( ${#added[@]} > 0 )); then
+		echo "### Added"; echo ""
+		printf '%s\n' "${added[@]}"; echo ""
+	fi
+	if (( ${#fixed[@]} > 0 )); then
+		echo "### Fixed"; echo ""
+		printf '%s\n' "${fixed[@]}"; echo ""
+	fi
+	if (( ${#changed[@]} > 0 )); then
+		echo "### Changed"; echo ""
+		printf '%s\n' "${changed[@]}"; echo ""
+	fi
 }
 
 if [[ -n "$(git status --porcelain)" ]]; then
@@ -102,9 +133,23 @@ if [[ "$DRY_RUN" -eq 0 ]]; then
 	fi
 else
 	echo ""
-	echo "→ Skipping tag creation (dry run)"
-	echo "→ Skipping CHANGELOG generation (dry run)"
-	echo "→ Skipping metadata.json bump (dry run)"
+	echo "→ Tag: $NEW_TAG"
+
+	echo ""
+	echo "→ CHANGELOG entry (preview):"
+	echo "## [$NEW_VERSION]($REPO_URL/releases/tag/$NEW_TAG) - $DATE"
+	echo ""
+	collect_changelog_entry "$LATEST_TAG" "HEAD"
+
+	if [[ -n "$src_preview" ]]; then
+		echo "→ metadata.json version: $current_meta_v → $((current_meta_v + 1))"
+	else
+		echo "→ metadata.json version: unchanged"
+	fi
+
+	echo ""
+	echo "→ Commit message:"
+	echo "  chore: release $NEW_TAG"
 fi
 
 echo ""
