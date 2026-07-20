@@ -6,48 +6,24 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 
 ## [Unreleased]
 
-### Added
+### Fixed
 
-- add semantic version bump suggestion to changelog.sh
+- resolve shexli path mismatch on macOS caused by /var symlink
+- fall back to `username` if display name is unavailable
 
 ### Changed
 
-- remove overwrite guard from changelog.sh Unreleased section
-- update release flow and conventional commit table with semver bump guidance
-- mention CI/CD automation in README
-- document GNOME Shell globals and ESLint rules in CONTRIBUTING
-- document editorconfig conventions in CONTRIBUTING
-- document manual release workflow dispatch for existing tags
-- clarify shexli is optional locally but enforced in CI
-- document changelog.sh scenarios and conventional commit mapping
-- document CI checks in CONTRIBUTING
-- overlay src/ from tag on manual dispatch to support old releases
-- overlay src/ from tag on manual dispatch to support old releases
-- add tag input to workflow_dispatch for manual release trigger
-- allow manual workflow dispatch on release workflow
-- replace shields.io badges with badgen.net
-- add shexli setup instructions to CONTRIBUTING
-- add shexli extension package validation to build script and CI
-- rename scripts to build.sh, local.sh and changelog.sh
-- add update-changelog.sh script for automated changelog management
-- document linting setup and release process in CONTRIBUTING
-- fix broken infos and typo in changelog
-- update metadata description
-- add CODEOWNERS designating @brendaw as required reviewer
-- add GitHub issue templates and pull request template
-- add automated release workflow on version tags
-- add GitHub Actions workflow for lint and metadata validation
-- add ESLint with GNOME Shell config and npm lint script
-- add .editorconfig to enforce project coding style
-- rename UsernameIndicator.js to camelCase for JS/GNOME convention alignment
-- move shell scripts into scripts/ directory
-- fix grammar and username casing in AUTHORS
-
-
-
-
-
-
+- fix release workflow referencing deleted ci-checks.yml
+- inline reusable workflow to fix branch protection check name mismatch
+- fix PR template CHANGELOG contradiction and add debug instructions to CONTRIBUTING
+- document metadata.json fields in RELEASING.md
+- add lifecycle flow to scripts overview in RELEASING.md
+- add scripts overview and pin shexli version in RELEASING.md
+- document contributor-facing scripts in CONTRIBUTING
+- document shexli checks, failure behavior, and macOS limitation in CONTRIBUTING
+- add local shexli validation instructions to CONTRIBUTING
+- pin shexli to 0.2.1 to avoid unexpected breakage on new releases
+- pin runners to ubuntu-24.04 to avoid breaking changes on ubuntu-latest updates
 
 ## [3.9.2](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.9.2) - 2026-06-11
 
