@@ -92,6 +92,13 @@ echo "Diff summary:"
 git diff --stat
 
 echo ""
+echo "→ Validating build..."
+if ! bash ./scripts/build.sh; then
+	echo "⚠  Build validation failed. Fix the issue before releasing."
+	exit 1
+fi
+
+echo ""
 read -r -p "Commit and push? [y/N] " confirm
 if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
 	echo ""
