@@ -25,6 +25,32 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 - pin shexli to 0.2.1 to avoid unexpected breakage on new releases
 - pin runners to ubuntu-24.04 to avoid breaking changes on ubuntu-latest updates
 
+
+## [3.9.3](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.9.3) - 2026-07-19
+
+### Fixed
+
+- resolve shexli path mismatch on macOS caused by /var symlink
+- fall back to `username` if display name is unavailable (#34)
+
+### Changed
+
+- show changelog preview and commit message in release.sh dry-run
+- add hustlerone to AUTHORS
+- add --dry-run flag to release.sh for safe preview
+- add build validation step to release.sh before push
+- remove duplicate entries from CHANGELOG unreleased section
+- fix release workflow referencing deleted ci-checks.yml
+- inline reusable workflow to fix branch protection check name mismatch
+- fix PR template CHANGELOG contradiction and add debug instructions to CONTRIBUTING
+- document metadata.json fields in RELEASING.md
+- add lifecycle flow to scripts overview in RELEASING.md
+- add scripts overview and pin shexli version in RELEASING.md
+- document contributor-facing scripts in CONTRIBUTING
+- document shexli checks, failure behavior, and macOS limitation in CONTRIBUTING
+- add local shexli validation instructions to CONTRIBUTING
+- pin shexli to 0.2.1 to avoid unexpected breakage on new releases
+
 ## [3.9.2](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.9.2) - 2026-06-11
 
 ### Changed
