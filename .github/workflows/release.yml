@@ -14,7 +14,7 @@ on:
 
 jobs:
   checks:
-    uses: ./.github/workflows/ci-checks.yml
+    uses: ./.github/workflows/ci.yml
 
   release:
     name: Create GitHub Release
