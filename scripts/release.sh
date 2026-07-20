@@ -4,6 +4,14 @@ set -e
 REPO_URL="https://github.com/brendaw/add-username-toppanel"
 CHANGELOG="CHANGELOG.md"
 METADATA="src/metadata.json"
+DRY_RUN=0
+
+for arg in "$@"; do
+	case "$arg" in
+		--dry-run) DRY_RUN=1 ;;
+		*) VERSION_ARG="$arg" ;;
+	esac
+done
 
 suggest_bump() {
 	local from="$1" to="${2:-HEAD}"
@@ -41,8 +49,8 @@ fi
 
 CURRENT_VERSION="${LATEST_TAG#v}"
 
-if [[ -n "$1" ]]; then
-	NEW_TAG="$1"
+if [[ -n "$VERSION_ARG" ]]; then
+	NEW_TAG="$VERSION_ARG"
 	[[ "$NEW_TAG" != v* ]] && NEW_TAG="v$NEW_TAG"
 	NEW_VERSION="${NEW_TAG#v}"
 	BUMP="manual"
@@ -63,6 +71,11 @@ else
 	echo "Preparing release $NEW_TAG ($BUMP bump from $LATEST_TAG)"
 fi
 
+if [[ "$DRY_RUN" -eq 1 ]]; then
+	echo ""
+	echo "DRY RUN — no changes will be made"
+fi
+
 src_preview=$(git diff --name-only "$LATEST_TAG" HEAD -- src/)
 if [[ -n "$src_preview" ]]; then
 	current_meta_v=$(node --input-type=commonjs -p "JSON.parse(require('fs').readFileSync('./src/metadata.json','utf8')).version")
@@ -74,59 +87,72 @@ echo ""
 read -r -p "Create tag and generate CHANGELOG entry? [y/N] " confirm
 [[ "$confirm" =~ ^[Yy]$ ]] || { echo "Aborted."; exit 0; }
 
-echo ""
-echo "→ Creating tag $NEW_TAG..."
-git tag "$NEW_TAG"
+if [[ "$DRY_RUN" -eq 0 ]]; then
+	echo ""
+	echo "→ Creating tag $NEW_TAG..."
+	git tag "$NEW_TAG"
 
-echo "→ Generating CHANGELOG entry..."
-RELEASING=1 ./scripts/changelog.sh
+	echo "→ Generating CHANGELOG entry..."
+	RELEASING=1 ./scripts/changelog.sh
 
-if [[ -n "$src_preview" ]]; then
-	echo "→ Bumping metadata.json: $current_meta_v → $((current_meta_v + 1))..."
-	sed -i.bak "s/\"version\": $current_meta_v/\"version\": $((current_meta_v + 1))/" src/metadata.json
-	rm -f src/metadata.json.bak
+	if [[ -n "$src_preview" ]]; then
+		echo "→ Bumping metadata.json: $current_meta_v → $((current_meta_v + 1))..."
+		sed -i.bak "s/\"version\": $current_meta_v/\"version\": $((current_meta_v + 1))/" src/metadata.json
+		rm -f src/metadata.json.bak
+	fi
+else
+	echo ""
+	echo "→ Skipping tag creation (dry run)"
+	echo "→ Skipping CHANGELOG generation (dry run)"
+	echo "→ Skipping metadata.json bump (dry run)"
 fi
 
 echo ""
 echo "Diff summary:"
 git diff --stat
 
-echo ""
-echo "→ Validating build..."
-if ! bash ./scripts/build.sh; then
-	echo "⚠  Build validation failed. Fix the issue before releasing."
-	exit 1
-fi
-
-echo ""
-read -r -p "Commit and push? [y/N] " confirm
-if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+if [[ "$DRY_RUN" -eq 0 ]]; then
 	echo ""
-	echo "Aborted. To undo:"
-	echo "  git tag -d $NEW_TAG"
-	echo "  git restore $CHANGELOG $METADATA"
-	exit 0
+	echo "→ Validating build..."
+	if ! bash ./scripts/build.sh; then
+		echo "⚠  Build validation failed. Fix the issue before releasing."
+		exit 1
+	fi
+
+	echo ""
+	read -r -p "Commit and push? [y/N] " confirm
+	if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+		echo ""
+		echo "Aborted. To undo:"
+		echo "  git tag -d $NEW_TAG"
+		echo "  git restore $CHANGELOG $METADATA"
+		exit 0
+	fi
+
+	files_to_add=("$CHANGELOG")
+	if [[ -n "$(git diff -- "$METADATA")" ]]; then
+		files_to_add+=("$METADATA")
+	fi
+
+	echo ""
+	echo "→ Committing..."
+	git add "${files_to_add[@]}"
+	git commit -m "chore: release $NEW_TAG"
+
+	echo "→ Moving tag $NEW_TAG to release commit..."
+	git tag -f "$NEW_TAG"
+
+	echo "→ Pushing main..."
+	git push origin main
+
+	echo "→ Pushing tag $NEW_TAG..."
+	git push origin "$NEW_TAG"
+
+	echo ""
+	echo "✓ Release $NEW_TAG pushed. Watch the workflow at:"
+	echo "  $REPO_URL/actions"
+else
+	echo ""
+	echo "DRY RUN complete. No changes were made."
+	echo "To proceed with the release, run without --dry-run."
 fi
-
-files_to_add=("$CHANGELOG")
-if [[ -n "$(git diff -- "$METADATA")" ]]; then
-	files_to_add+=("$METADATA")
-fi
-
-echo ""
-echo "→ Committing..."
-git add "${files_to_add[@]}"
-git commit -m "chore: release $NEW_TAG"
-
-echo "→ Moving tag $NEW_TAG to release commit..."
-git tag -f "$NEW_TAG"
-
-echo "→ Pushing main..."
-git push origin main
-
-echo "→ Pushing tag $NEW_TAG..."
-git push origin "$NEW_TAG"
-
-echo ""
-echo "✓ Release $NEW_TAG pushed. Watch the workflow at:"
-echo "  $REPO_URL/actions"
