@@ -118,5 +118,23 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
       Gio.SettingsBindFlags.DEFAULT,
     );
     generalGroup.add(fontSizeRow);
+
+    const resetGroup = new Adw.PreferencesGroup();
+    page.add(resetGroup);
+
+    const resetButton = new Gtk.Button({
+      label: "Reset to defaults",
+      css_classes: ["destructive-action"],
+      halign: Gtk.Align.CENTER,
+      margin_top: 12,
+    });
+    resetButton.connect("clicked", () => {
+      settings.reset("display-text");
+      settings.reset("position");
+      settings.reset("spacing-left");
+      settings.reset("spacing-right");
+      settings.reset("font-size");
+    });
+    resetGroup.add(resetButton);
   }
 }
