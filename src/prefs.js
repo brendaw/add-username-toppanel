@@ -55,9 +55,9 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
     });
     generalGroup.add(positionRow);
 
-    const paddingRow = new Adw.SpinRow({
-      title: "Horizontal padding",
-      subtitle: "Extra padding around the username text (in pixels)",
+    const spacingLeftRow = new Adw.SpinRow({
+      title: "Spacing left",
+      subtitle: "Extra spacing to the left of the text (in pixels)",
       adjustment: new Gtk.Adjustment({
         lower: 0,
         upper: 50,
@@ -66,16 +66,16 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
       }),
     });
     settings.bind(
-      "padding",
-      paddingRow,
+      "spacing-left",
+      spacingLeftRow,
       "value",
       Gio.SettingsBindFlags.DEFAULT,
     );
-    generalGroup.add(paddingRow);
+    generalGroup.add(spacingLeftRow);
 
-    const spacingRow = new Adw.SpinRow({
-      title: "Spacing",
-      subtitle: "Extra spacing between elements (in pixels)",
+    const spacingRightRow = new Adw.SpinRow({
+      title: "Spacing right",
+      subtitle: "Extra spacing to the right of the text (in pixels)",
       adjustment: new Gtk.Adjustment({
         lower: 0,
         upper: 50,
@@ -84,11 +84,29 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
       }),
     });
     settings.bind(
-      "spacing",
-      spacingRow,
+      "spacing-right",
+      spacingRightRow,
       "value",
       Gio.SettingsBindFlags.DEFAULT,
     );
-    generalGroup.add(spacingRow);
+    generalGroup.add(spacingRightRow);
+
+    const fontSizeRow = new Adw.SpinRow({
+      title: "Font size",
+      subtitle: "Text size in pixels (0 = system default)",
+      adjustment: new Gtk.Adjustment({
+        lower: 0,
+        upper: 24,
+        step_increment: 1,
+        page_increment: 4,
+      }),
+    });
+    settings.bind(
+      "font-size",
+      fontSizeRow,
+      "value",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+    generalGroup.add(fontSizeRow);
   }
 }

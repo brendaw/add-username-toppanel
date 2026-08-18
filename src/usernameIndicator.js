@@ -28,8 +28,9 @@ export class UsernameIndicator extends SystemIndicator {
 
     this._signalIds = [
       settings.connect("changed::display-text", () => this._updateText()),
-      settings.connect("changed::padding", () => this._applyStyle()),
-      settings.connect("changed::spacing", () => this._applyStyle()),
+      settings.connect("changed::spacing-left", () => this._applyStyle()),
+      settings.connect("changed::spacing-right", () => this._applyStyle()),
+      settings.connect("changed::font-size", () => this._applyStyle()),
       settings.connect("changed::position", () => this._applyPosition()),
     ];
 
@@ -61,11 +62,22 @@ export class UsernameIndicator extends SystemIndicator {
   }
 
   _applyStyle() {
-    const padding = this._settings.get_int("padding");
-    const spacing = this._settings.get_int("spacing");
-    this._usernameLabel.set_style(
-      `padding-left: ${padding}px; padding-right: ${padding}px; margin-left: ${spacing}px; margin-right: ${spacing}px;`,
-    );
+    const spacingLeft = this._settings.get_int("spacing-left");
+    const spacingRight = this._settings.get_int("spacing-right");
+    const fontSize = this._settings.get_int("font-size");
+
+    const styles = [];
+    if (spacingLeft > 0) {
+      styles.push(`margin-left: ${spacingLeft}px`);
+    }
+    if (spacingRight > 0) {
+      styles.push(`margin-right: ${spacingRight}px`);
+    }
+    if (fontSize > 0) {
+      styles.push(`font-size: ${fontSize}px`);
+    }
+
+    this._usernameLabel.set_style(styles.join("; "));
   }
 
   _applyPosition() {

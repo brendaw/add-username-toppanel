@@ -16,17 +16,23 @@
         <choice value="right"/>
       </choices>
     </key>
-    <key name="padding" type="i">
+    <key name="spacing-left" type="i">
       <default>0</default>
-      <summary>Horizontal padding</summary>
-      <description>Extra horizontal padding (in pixels) around the username text.</description>
+      <summary>Left spacing</summary>
+      <description>Extra spacing (in pixels) to the left of the username text.</description>
       <range min="0" max="50"/>
     </key>
-    <key name="spacing" type="i">
+    <key name="spacing-right" type="i">
       <default>0</default>
-      <summary>Spacing between elements</summary>
-      <description>Extra spacing (in pixels) between the username and other panel indicators.</description>
+      <summary>Right spacing</summary>
+      <description>Extra spacing (in pixels) to the right of the username text.</description>
       <range min="0" max="50"/>
+    </key>
+    <key name="font-size" type="i">
+      <default>0</default>
+      <summary>Font size</summary>
+      <description>Font size in pixels. 0 uses the system default.</description>
+      <range min="0" max="24"/>
     </key>
   </schema>
 </schemalist>
