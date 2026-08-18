@@ -13,7 +13,7 @@ export class UsernameIndicator extends SystemIndicator {
     this._indicator = this._addIndicator();
 
     this._usernameLabel = new St.Label({
-      text: this._getUsername() + "    ",
+      text: this._getUsername(),
       y_align: Clutter.ActorAlign.CENTER,
     });
     this._applyStyle();
@@ -57,7 +57,7 @@ export class UsernameIndicator extends SystemIndicator {
   }
 
   _updateText() {
-    this._usernameLabel.set_text(this._getUsername() + "    ");
+    this._usernameLabel.set_text(this._getUsername());
   }
 
   _applyStyle() {
