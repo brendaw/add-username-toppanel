@@ -14,8 +14,11 @@ Simply add your display name to the top panel Quick Settings menu in GNOME Shell
 
 ## Features
 
-- Displays your system display name in the Quick Settings menu of the top panel
-- Positioned at the right end of the Quick Settings indicators
+- Displays your display name in the Quick Settings menu of the top panel
+- Customizable display text with template variables (`%u` user, `%U` name, `%h` host)
+- Configurable position: left, center, or right in the panel
+- Adjustable left/right spacing and font size
+- Settings panel accessible from GNOME Extensions preferences
 - Compatible with GNOME Shell 45 to 50
 - Lightweight with no external dependencies
 
@@ -77,13 +80,18 @@ This extension supports GNOME Shell 45 to 50.
 
 ### Extension shows "Unknown" instead of my name
 
-This extension displays the **display name** from your system (the GECOS field in `/etc/passwd`),
-not the login username. If it shows "Unknown", the display name field may be empty in your system.
+The extension uses a fallback cascade: display name → login username → hostname.
+If it shows "Unknown", the display name field may be empty in your system.
 
 Check your entry in `/etc/passwd` and fill in the display name field as shown below —
 it will appear after the next GNOME Shell boot.
 
-![image](https://user-images.githubusercontent.com/3674847/210005925-bd7c1aab-5d05-4650-987f-869fda41e8a6.png)
+![image](https://user-images.githubusercontent.com/3674847/210005925-bd7c1aab-5d05-4650-987f-869fda41e8a6)
+
+You can also set a custom display text in the extension preferences using template variables:
+- `%u` — login username
+- `%U` — display name
+- `%h` — hostname
 
 For other problems, check the [open issues](https://github.com/brendaw/add-username-toppanel/issues) or open a new one.
 
