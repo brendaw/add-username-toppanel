@@ -101,6 +101,12 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
         page_increment: 4,
       }),
     });
+    fontSizeRow.connect("notify::value", () => {
+      const value = fontSizeRow.get_value();
+      if (value > 0 && value < 8) {
+        fontSizeRow.set_value(8);
+      }
+    });
     settings.bind(
       "font-size",
       fontSizeRow,
