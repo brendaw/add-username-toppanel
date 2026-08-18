@@ -26,7 +26,7 @@ For bug reports or feature requests, [open an Issue](https://github.com/brendaw/
    ./scripts/local.sh
    ```
 
-   This copies the files from `src/` to `~/.local/share/gnome-shell/extensions/add-username-toppanel@brendaw.com`.
+   This copies the files from `src/` to `~/.local/share/gnome-shell/extensions/add-username-toppanel@brendaw.com` and compiles GSettings schemas.
 
 3. Log out and back in to load the extension, then enable it:
 
@@ -114,8 +114,8 @@ The linter also enforces `prefer-const`, `no-var`, and ES2022 syntax. Unused fun
 
 | Script | Purpose |
 |---|---|
-| `scripts/local.sh` | Copies `src/` directly to `~/.local/share/gnome-shell/extensions/` for local testing — use this during development after every change |
-| `scripts/build.sh` | Packs `src/` into a `.zip` at `build/add-username-toppanel@brendaw.com.zip` — used by CI and for manual shexli validation |
+| `scripts/local.sh` | Copies `src/` directly to `~/.local/share/gnome-shell/extensions/` and compiles GSettings schemas — use this during development after every change |
+| `scripts/build.sh` | Packs `src/` into a `.zip` at `build/add-username-toppanel@brendaw.com.zip`, compiling schemas first — used by CI and for manual shexli validation |
 
 `changelog.sh` and `release.sh` are maintainer-only scripts and are not part of the contributor workflow.
 
