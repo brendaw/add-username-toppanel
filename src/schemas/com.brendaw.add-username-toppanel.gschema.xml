@@ -31,7 +31,7 @@
     <key name="font-size" type="i">
       <default>0</default>
       <summary>Font size</summary>
-      <description>Font size in pixels. 0 uses the system default.</description>
+      <description>Font size in pixels. 0 uses the panel default.</description>
       <range min="0" max="24"/>
     </key>
   </schema>
