@@ -7,6 +7,16 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
     const settings = this.getSettings("com.brendaw.add-username-toppanel");
 
+    const savedValues = {
+      "display-text": settings.get_string("display-text"),
+      "position": settings.get_string("position"),
+      "spacing-left": settings.get_int("spacing-left"),
+      "spacing-right": settings.get_int("spacing-right"),
+      "font-size": settings.get_int("font-size"),
+    };
+
+    const positionLabels = { left: "Left", center: "Center", right: "Right" };
+
     const page = new Adw.PreferencesPage({
       title: "General",
       icon_name: "preferences-system-symbolic",
@@ -44,15 +54,19 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
       subtitle: "Where to place the username in the top panel",
       model: positionModel,
     });
-    positionRow.set_selected(
-      ["left", "center", "right"].indexOf(settings.get_string("position")),
-    );
+    const updatePositionCombo = () => {
+      positionRow.set_selected(
+        ["left", "center", "right"].indexOf(settings.get_string("position")),
+      );
+    };
+    updatePositionCombo();
     positionRow.connect("notify::selected", () => {
       settings.set_string(
         "position",
         ["left", "center", "right"][positionRow.get_selected()],
       );
     });
+    settings.connect("changed::position", updatePositionCombo);
     generalGroup.add(positionRow);
 
     const spacingLeftRow = new Adw.SpinRow({
@@ -119,16 +133,49 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
     );
     generalGroup.add(fontSizeRow);
 
-    const resetGroup = new Adw.PreferencesGroup();
-    page.add(resetGroup);
+    const actionsGroup = new Adw.PreferencesGroup();
+    page.add(actionsGroup);
 
-    const resetButton = new Gtk.Button({
-      label: "Reset to defaults",
-      css_classes: ["destructive-action"],
+    const resetLastButton = new Gtk.Button({
+      label: "Reset to last saved",
       halign: Gtk.Align.CENTER,
       margin_top: 12,
     });
-    resetButton.connect("clicked", () => {
+    resetLastButton.connect("clicked", () => {
+      const lines = [];
+      for (const [key, value] of Object.entries(savedValues)) {
+        const displayValue = key === "position"
+          ? positionLabels[value] || value
+          : String(value);
+        lines.push(`${key}: ${displayValue}`);
+      }
+      const dialog = new Adw.MessageDialog({
+        heading: "Revert to last saved settings?",
+        body: `This will restore:\n\n${lines.join("\n")}`,
+        transient_for: window,
+      });
+      dialog.add_response("cancel", "Cancel");
+      dialog.add_response("revert", "Revert");
+      dialog.connect("response", (_source, response) => {
+        if (response === "revert") {
+          settings.set_string("display-text", savedValues["display-text"]);
+          settings.set_string("position", savedValues["position"]);
+          settings.set_int("spacing-left", savedValues["spacing-left"]);
+          settings.set_int("spacing-right", savedValues["spacing-right"]);
+          settings.set_int("font-size", savedValues["font-size"]);
+        }
+      });
+      dialog.present();
+    });
+    actionsGroup.add(resetLastButton);
+
+    const resetDefaultsButton = new Gtk.Button({
+      label: "Reset to defaults",
+      css_classes: ["destructive-action"],
+      halign: Gtk.Align.CENTER,
+      margin_top: 6,
+    });
+    resetDefaultsButton.connect("clicked", () => {
       const dialog = new Adw.MessageDialog({
         heading: "Reset all settings?",
         body: "This will restore all settings to their default values.",
@@ -148,6 +195,6 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
       });
       dialog.present();
     });
-    resetGroup.add(resetButton);
+    actionsGroup.add(resetDefaultsButton);
   }
 }
