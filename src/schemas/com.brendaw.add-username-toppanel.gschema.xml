@@ -4,7 +4,7 @@
     <key name="display-text" type="s">
       <default>''</default>
       <summary>Custom display text</summary>
-      <description>Text to display in the panel. Leave empty to use the user's display name.</description>
+      <description>Text to display in the panel. Supports templates: %u (username), %U (display name), %h (hostname). Leave empty to use the display name.</description>
     </key>
     <key name="position" type="s">
       <default>'right'</default>

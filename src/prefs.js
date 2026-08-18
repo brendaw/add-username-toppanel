@@ -21,6 +21,13 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
     const displayTextRow = new Adw.EntryRow({
       title: "Display text",
     });
+    const displayTextSubtitle = new Gtk.Label({
+      label: "Templates: %u (user), %U (name), %h (host). Leave empty for default.",
+      wrap: true,
+      xalign: 0,
+      css_classes: ["dim-label", "caption"],
+    });
+    displayTextRow.add_suffix(displayTextSubtitle);
     settings.bind(
       "display-text",
       displayTextRow,

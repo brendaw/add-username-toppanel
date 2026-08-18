@@ -34,14 +34,22 @@ export class UsernameIndicator extends SystemIndicator {
   }
 
   _getUsername() {
-    let username = this._settings.get_string("display-text");
-    if (!username) {
-      username = GLib.get_real_name();
-      if (username === "Unknown") {
-        username = GLib.get_user_name();
+    const template = this._settings.get_string("display-text");
+    if (!template) {
+      const name = GLib.get_real_name();
+      if (name && name !== "Unknown") {
+        return name;
       }
+      const user = GLib.get_user_name();
+      if (user) {
+        return user;
+      }
+      return GLib.get_host_name();
     }
-    return username;
+    return template
+      .replace(/%u/g, GLib.get_user_name())
+      .replace(/%U/g, GLib.get_real_name())
+      .replace(/%h/g, GLib.get_host_name());
   }
 
   _updateText() {
