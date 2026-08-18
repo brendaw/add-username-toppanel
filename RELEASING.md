@@ -6,7 +6,7 @@ This document describes the release process for maintainers of Add Username to T
 
 | Script | Purpose |
 |---|---|
-| `scripts/build.sh` | Packs `src/` into a `.zip` for distribution; runs shexli validation automatically if installed |
+| `scripts/build.sh` | Packs `src/` into a `.zip` for distribution, compiling GSettings schemas first; runs shexli validation automatically if installed |
 | `scripts/local.sh` | Copies `src/` to the local GNOME extensions folder for development testing |
 | `scripts/changelog.sh` | Updates `CHANGELOG.md` and bumps the integer `version` in `metadata.json`; called by `release.sh` |
 | `scripts/release.sh` | Orchestrates the full release: version detection, changelog, commit, tag, and push |
