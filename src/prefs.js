@@ -1,11 +1,35 @@
 import Adw from "gi://Adw";
 import Gio from "gi://Gio";
 import Gtk from "gi://Gtk";
+import Pango from "gi://Pango";
 import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
+
+function getSystemFontSize() {
+  const gtkSettings = Gtk.Settings.get_default();
+  if (!gtkSettings) {
+    return 0;
+  }
+  const fontName = gtkSettings.gtk_font_name;
+  if (!fontName) {
+    return 0;
+  }
+  const desc = Pango.FontDescription.from_string(fontName);
+  if (!desc) {
+    return 0;
+  }
+  const size = desc.get_size();
+  if (size <= 0) {
+    return 0;
+  }
+  const isAbsolute = desc.get_size_is_absolute();
+  const fontSize = isAbsolute ? size : size / Pango.SCALE;
+  return Math.round(fontSize);
+}
 
 export default class UsernameIndicatorPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
     const settings = this.getSettings("com.brendaw.add-username-toppanel");
+    const systemFontSize = getSystemFontSize();
 
     const page = new Adw.PreferencesPage({
       title: "General",
@@ -91,9 +115,12 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
     );
     generalGroup.add(spacingRightRow);
 
+    const fontSizeSubtitle = systemFontSize > 0
+      ? `System default: ${systemFontSize}px (0 = use default)`
+      : "0 = system default";
     const fontSizeRow = new Adw.SpinRow({
       title: "Font size",
-      subtitle: "Text size in pixels (0 = system default)",
+      subtitle: fontSizeSubtitle,
       adjustment: new Gtk.Adjustment({
         lower: 0,
         upper: 24,
