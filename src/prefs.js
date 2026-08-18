@@ -101,11 +101,15 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
         page_increment: 4,
       }),
     });
+    let lastFontSize = settings.get_int("font-size");
     fontSizeRow.connect("notify::value", () => {
       const value = fontSizeRow.get_value();
-      if (value > 0 && value < 8) {
-        fontSizeRow.set_value(8);
+      if (lastFontSize === 0 && value > 0) {
+        fontSizeRow.set_value(15);
+      } else if (value > 0 && value < 8) {
+        fontSizeRow.set_value(0);
       }
+      lastFontSize = fontSizeRow.get_value();
     });
     settings.bind(
       "font-size",
