@@ -129,11 +129,24 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
       margin_top: 12,
     });
     resetButton.connect("clicked", () => {
-      settings.reset("display-text");
-      settings.reset("position");
-      settings.reset("spacing-left");
-      settings.reset("spacing-right");
-      settings.reset("font-size");
+      const dialog = new Adw.MessageDialog({
+        heading: "Reset all settings?",
+        body: "This will restore all settings to their default values.",
+        transient_for: window,
+      });
+      dialog.add_response("cancel", "Cancel");
+      dialog.add_response("reset", "Reset");
+      dialog.set_response_appearance("reset", Adw.ResponseAppearance.DESTRUCTIVE);
+      dialog.connect("response", (_source, response) => {
+        if (response === "reset") {
+          settings.set_string("display-text", "");
+          settings.set_string("position", "right");
+          settings.set_int("spacing-left", 0);
+          settings.set_int("spacing-right", 10);
+          settings.set_int("font-size", 0);
+        }
+      });
+      dialog.present();
     });
     resetGroup.add(resetButton);
   }
