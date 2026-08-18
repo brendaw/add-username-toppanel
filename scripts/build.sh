@@ -15,7 +15,13 @@ mkdir -p $build_folder
 
 cd $source_folder
 
-zip "../$packed_extension_file" *
+# Compile GSettings schemas
+schemas_dir="../$build_folder/schemas"
+mkdir -p "$schemas_dir"
+cp schemas/*.gschema.xml "$schemas_dir/"
+glib-compile-schemas "$schemas_dir/"
+
+zip "../$packed_extension_file" * -x "schemas/*"
 
 cd ..
 

@@ -15,12 +15,14 @@ export default class UsernameIndicatorExtension extends Extension {
   _indicator;
 
   enable() {
-    this._indicator = new UsernameIndicator();
+    this._settings = this.getSettings();
+    this._indicator = new UsernameIndicator(this._settings);
   }
 
   disable() {
     this._indicator.destroy();
     this._indicator = null;
+    this._settings = null;
   }
 }
 

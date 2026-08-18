@@ -11,4 +11,10 @@ rm -rf "$extension_folder/"*
 
 cp -r src/* $extension_folder
 
+# Compile GSettings schemas
+if [ -d "$extension_folder/schemas" ]; then
+  mkdir -p "$extension_folder/schemas"
+  glib-compile-schemas "$extension_folder/schemas/"
+fi
+
 echo "Extension updated locally at $extension_folder"
