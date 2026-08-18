@@ -15,7 +15,7 @@ export default class UsernameIndicatorExtension extends Extension {
   _indicator;
 
   enable() {
-    this._settings = this.getSettings();
+    this._settings = this.getSettings("com.brendaw.add-username-toppanel");
     this._indicator = new UsernameIndicator(this._settings);
   }
 
