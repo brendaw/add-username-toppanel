@@ -12,12 +12,16 @@
 
 Simply add your display name to the top panel Quick Settings menu in GNOME Shell.
 
+Visit the [project website](https://autp.brendaw.net) for more details.
+
 ## Features
 
 - Displays your display name in the Quick Settings menu of the top panel
 - Customizable display text with template variables (`%u` user, `%U` name, `%h` host)
 - Configurable position: left, center, or right in the panel
 - Adjustable left/right spacing and font size
+- Settings apply in real time — no GNOME Shell restart needed
+- Reset to last saved settings or to defaults, with a confirmation dialog
 - Settings panel accessible from GNOME Extensions preferences
 - Compatible with GNOME Shell 45 to 50
 - Lightweight with no external dependencies
