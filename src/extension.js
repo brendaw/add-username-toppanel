@@ -15,7 +15,7 @@ export default class UsernameIndicatorExtension extends Extension {
   _indicator;
 
   enable() {
-    this._settings = this.getSettings("org.gnome.shell.extensions.add-username-toppanel");
+    this._settings = this.getSettings();
     this._indicator = new UsernameIndicator(this._settings);
   }
 
