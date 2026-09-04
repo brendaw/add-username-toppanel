@@ -8,7 +8,7 @@
 
 # Add Username to Top Panel
 
-![add-username-to-toppanel](https://extensions.gnome.org/extension-data/screenshots/screenshot_1108_qjQUeTi.png)
+![add-username-to-toppanel](assets/panel-preview.png)
 
 Simply add your display name to the top panel Quick Settings menu in GNOME Shell.
 
@@ -25,6 +25,8 @@ Visit the [project website](https://autp.brendaw.net) for more details.
 - Settings panel accessible from GNOME Extensions preferences
 - Compatible with GNOME Shell 45 to 50
 - Lightweight with no external dependencies
+
+![Preferences panel](assets/preferences-panel.png)
 
 ## Installation
 
@@ -87,10 +89,9 @@ This extension supports GNOME Shell 45 to 50.
 The extension uses a fallback cascade: display name → login username → hostname.
 If it shows "Unknown", the display name field may be empty in your system.
 
-Check your entry in `/etc/passwd` and fill in the display name field as shown below —
-it will appear after the next GNOME Shell boot.
-
-![image](https://user-images.githubusercontent.com/3674847/210005925-bd7c1aab-5d05-4650-987f-869fda41e8a6)
+Check your entry in `/etc/passwd` and fill in the display name field (the GECOS field,
+the first comma-separated value after the username) — it will appear after the next
+GNOME Shell boot.
 
 You can also set a custom display text in the extension preferences using template variables:
 - `%u` — login username
