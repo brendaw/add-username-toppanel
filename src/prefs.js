@@ -5,7 +5,7 @@ import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/
 
 export default class UsernameIndicatorPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
-    const settings = this.getSettings("com.brendaw.add-username-toppanel");
+    const settings = this.getSettings("org.gnome.shell.extensions.add-username-toppanel");
 
     const savedValues = {
       "display-text": settings.get_string("display-text"),

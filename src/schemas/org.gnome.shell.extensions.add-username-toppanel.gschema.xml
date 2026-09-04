@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="add-username-toppanel">
-  <schema id="com.brendaw.add-username-toppanel" path="/com/brendaw/add-username-toppanel/">
+  <schema id="org.gnome.shell.extensions.add-username-toppanel" path="/org/gnome/shell/extensions/add-username-toppanel/">
     <key name="display-text" type="s">
       <default>''</default>
       <summary>Custom display text</summary>

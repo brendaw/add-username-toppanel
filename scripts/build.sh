@@ -23,6 +23,8 @@ glib-compile-schemas "$schemas_dir/"
 
 zip "../$packed_extension_file" * -x "schemas/*"
 
+cd "../$build_folder"
+zip "$extension_uuid.zip" schemas/*.gschema.xml
 cd ..
 
 echo "Extension packed at $packed_extension_file"
