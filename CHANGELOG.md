@@ -33,6 +33,37 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 - simplify font size control and remove system detection
 - remove hardcoded spaces from username label text
 
+
+## [4.0.0](https://github.com/brendaw/add-username-toppanel/releases/tag/v4.0.0) - 2026-09-04
+
+### Added
+
+- add reset to last saved settings with confirmation dialogs
+- add reset to defaults button in preferences panel
+- add left/right spacing controls, font size detection, and adjust defaults
+- replace padding with left/right spacing controls and add font size
+- add position control for username in panel (left, center, right)
+- support template variables in display text (%u, %U, %h)
+- apply settings changes in real-time without restart
+
+### Fixed
+
+- use GNOME-compliant GSettings schema id and fix package build
+- use explicit set calls for reset and add confirmation dialog
+- adjust font size slider to jump 0->15 on up and 8->0 on down
+- jump font size slider from 0 to 8 on first interaction
+- pass schema ID to getSettings in extension and prefs
+
+### Changed
+
+- update changelog with pending changes
+- add real-time apply and reset features, link project website
+- update RELEASING with GSettings schema compilation in build.sh
+- update CONTRIBUTING with GSettings schema compilation info
+- update README with new features and troubleshooting info
+- simplify font size control and remove system detection
+- remove hardcoded spaces from username label text
+
 ## [3.9.3](https://github.com/brendaw/add-username-toppanel/releases/tag/v3.9.3) - 2026-07-19
 
 ### Fixed
