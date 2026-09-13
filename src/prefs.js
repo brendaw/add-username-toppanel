@@ -9,6 +9,7 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
 
     const savedValues = {
       "display-text": settings.get_string("display-text"),
+      "avatar-picture-position": settings.get_string("avatar-picture-position"),
       "position": settings.get_string("position"),
       "spacing-left": settings.get_int("spacing-left"),
       "spacing-right": settings.get_int("spacing-right"),
@@ -45,6 +46,29 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
       Gio.SettingsBindFlags.DEFAULT,
     );
     generalGroup.add(displayTextRow);
+
+    const positionAvatarPictureModel = new Gtk.StringList({
+      strings: ["Hidden", "Before Display text", "After Display text"],
+    });
+    const positionAvatarPicture = new Adw.ComboRow({
+      title: "Position of Avatar picture",
+      subtitle: "Where to place Avatar picture relative to display text",
+      model: positionAvatarPictureModel,
+    });
+    const updateAvatarPicturePositionCombo = () => {
+      positionAvatarPicture.set_selected(
+        ["hidden", "before", "after"].indexOf(settings.get_string("avatar-picture-position")),
+      );
+    };
+    updateAvatarPicturePositionCombo();
+    positionAvatarPicture.connect("notify::selected", () => {
+      settings.set_string(
+        "avatar-picture-position",
+        ["hidden", "before", "after"][positionAvatarPicture.get_selected()],
+      );
+    });
+    settings.connect("changed::avatar-picture-position", updateAvatarPicturePositionCombo);
+    generalGroup.add(positionAvatarPicture);
 
     const positionModel = new Gtk.StringList({
       strings: ["Left", "Center", "Right"],
@@ -159,6 +183,7 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
       dialog.connect("response", (_source, response) => {
         if (response === "revert") {
           settings.set_string("display-text", savedValues["display-text"]);
+          settings.set_string("avatar-picture-position", savedValues["avatar-picture-position"]);
           settings.set_string("position", savedValues["position"]);
           settings.set_int("spacing-left", savedValues["spacing-left"]);
           settings.set_int("spacing-right", savedValues["spacing-right"]);
@@ -187,6 +212,7 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
       dialog.connect("response", (_source, response) => {
         if (response === "reset") {
           settings.set_string("display-text", "");
+          settings.set_string("avatar-picture-position", "hidden");
           settings.set_string("position", "right");
           settings.set_int("spacing-left", 0);
           settings.set_int("spacing-right", 10);
