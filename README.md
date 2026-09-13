@@ -10,7 +10,7 @@
 
 ![add-username-to-toppanel](assets/panel-preview.png)
 
-Simply add your display name to the top panel Quick Settings menu in GNOME Shell.
+Simply add your display name and avatar image to the top panel Quick Settings menu in GNOME Shell.
 
 Visit the [project website](https://autp.brendaw.net) for more details.
 
@@ -18,6 +18,7 @@ Visit the [project website](https://autp.brendaw.net) for more details.
 
 - Displays your display name in the Quick Settings menu of the top panel
 - Customizable display text with template variables (`%u` user, `%U` name, `%h` host)
+- Optionally display avatar picture associated with the user account
 - Configurable position: left, center, or right in the panel
 - Adjustable left/right spacing and font size
 - Settings apply in real time — no GNOME Shell restart needed

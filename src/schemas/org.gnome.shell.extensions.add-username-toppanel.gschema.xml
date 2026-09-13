@@ -6,6 +6,16 @@
       <summary>Custom display text</summary>
       <description>Text to display in the panel. Supports templates: %u (username), %U (display name), %h (hostname). Leave empty to use the display name.</description>
     </key>
+    <key name="avatar-picture-position" type="s">
+      <default>'hidden'</default>
+      <summary>Position of avatar picture</summary>
+      <description>Where to place Avatar picture relative to display text.</description>
+      <choices>
+        <choice value="hidden"/>
+        <choice value="before"/>
+        <choice value="after"/>
+      </choices>
+    </key>
     <key name="position" type="s">
       <default>'right'</default>
       <summary>Position in the panel</summary>
