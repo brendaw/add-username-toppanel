@@ -20,6 +20,8 @@ export class UsernameIndicator extends SystemIndicator {
     });
     // We will load the avatar image, if required, in '_applyPositionAvatarPicture()'
     this._avatarPicture = null;
+    this._avatarMonitor = null;
+    this._avatarMonitorId = 0;
     this._applyStyle();
     this.add_child(this._usernameLabel);
 
@@ -155,13 +157,14 @@ export class UsernameIndicator extends SystemIndicator {
   _applyPositionAvatarPicture() {
     const positionAvatarPicture = this._settings.get_string("avatar-picture-position");
     if (this._avatarPicture == null) {
-      if (positionAvatarPicture === "hidden" || this._getUserAvatarFilename() == null)
+      const filename = positionAvatarPicture === "hidden" ? null : this._getUserAvatarFilename();
+      if (filename == null)
         return;
 
       const AVATAR_PICTURE_SIZE = Main.panel.height - 10;
-      this._avatarPicture = this._createCircularStIcon(this._getUserAvatarFilename(),
-                                                       AVATAR_PICTURE_SIZE);
+      this._avatarPicture = this._createCircularStIcon(filename, AVATAR_PICTURE_SIZE);
       this.add_child(this._avatarPicture);  // We will reposition this below
+      this._watchAvatarFile(filename);
     }
 
     const AVATAR_PICTURE_SPACING_PX = 8;
@@ -178,6 +181,32 @@ export class UsernameIndicator extends SystemIndicator {
       this.set_child_above_sibling(this._avatarPicture, this._usernameLabel);
       this._avatarPicture.show();
     }
+  }
+
+  _watchAvatarFile(path) {
+    this._avatarMonitor = Gio.File.new_for_path(path).monitor_file(Gio.FileMonitorFlags.NONE, null);
+    this._avatarMonitorId = this._avatarMonitor.connect("changed", (_monitor, _file, _other, event) => {
+      if (event === Gio.FileMonitorEvent.CHANGES_DONE_HINT ||
+          event === Gio.FileMonitorEvent.CREATED ||
+          event === Gio.FileMonitorEvent.RENAMED)
+        this._reloadAvatarPicture();
+    });
+  }
+
+  _unwatchAvatarFile() {
+    if (this._avatarMonitor) {
+      this._avatarMonitor.disconnect(this._avatarMonitorId);
+      this._avatarMonitor.cancel();
+      this._avatarMonitor = null;
+      this._avatarMonitorId = 0;
+    }
+  }
+
+  _reloadAvatarPicture() {
+    this._unwatchAvatarFile();
+    this._avatarPicture?.destroy();
+    this._avatarPicture = null;
+    this._applyPositionAvatarPicture();
   }
 
   _createCircularPixbuf(path, size_px) {
@@ -257,6 +286,7 @@ export class UsernameIndicator extends SystemIndicator {
   }
 
   destroy() {
+    this._unwatchAvatarFile();
     if (this._signalIds) {
       for (const id of this._signalIds) {
         this._settings.disconnect(id);
