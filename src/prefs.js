@@ -55,16 +55,16 @@ export default class UsernameIndicatorPreferences extends ExtensionPreferences {
       subtitle: "Where to place Avatar picture relative to display text",
       model: positionAvatarPictureModel,
     });
+    const avatarPositions = ["hidden", "before", "after"];
     const updateAvatarPicturePositionCombo = () => {
-      positionAvatarPicture.set_selected(
-        ["hidden", "before", "after"].indexOf(settings.get_string("avatar-picture-position")),
-      );
+      const idx = avatarPositions.indexOf(settings.get_string("avatar-picture-position"));
+      positionAvatarPicture.set_selected(idx >= 0 ? idx : 0);
     };
     updateAvatarPicturePositionCombo();
     positionAvatarPicture.connect("notify::selected", () => {
       settings.set_string(
         "avatar-picture-position",
-        ["hidden", "before", "after"][positionAvatarPicture.get_selected()],
+        avatarPositions[positionAvatarPicture.get_selected()],
       );
     });
     settings.connect("changed::avatar-picture-position", updateAvatarPicturePositionCombo);

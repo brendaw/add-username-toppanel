@@ -6,6 +6,10 @@ import GdkPixbuf from "gi://GdkPixbuf";
 import { SystemIndicator } from "resource:///org/gnome/shell/ui/quickSettings.js";
 import * as Main from "resource:///org/gnome/shell/ui/main.js";
 
+const AVATAR_PICTURE_SPACING_PX = 8;
+const AVATAR_PICTURE_BORDER_PX = 10; // avatar size = panel height minus this
+const ALPHA_CHANNEL_IDX = 3;
+
 export class UsernameIndicator extends SystemIndicator {
   _init(settings) {
     super._init();
@@ -20,6 +24,9 @@ export class UsernameIndicator extends SystemIndicator {
     });
     // We will load the avatar image, if required, in '_applyPositionAvatarPicture()'
     this._avatarPicture = null;
+    this._avatarMonitor = null;
+    this._avatarMonitorId = 0;
+    this._lastAvatarError = null;
     this._applyStyle();
     this.add_child(this._usernameLabel);
 
@@ -97,17 +104,25 @@ export class UsernameIndicator extends SystemIndicator {
       const path = iconFileVariant.deep_unpack();
 
       if (path && GLib.file_test(path, GLib.FileTest.EXISTS | GLib.FileTest.IS_REGULAR)) {
+        this._lastAvatarError = null;
         return path;
       }
       else {
-        logError(new Error("User avatar file does not exist or is not a regular file"),
-                 "Failed to fetch user avatar via DBus");
+        this._logAvatarError(new Error("User avatar file does not exist or is not a regular file"));
       }
     } catch (e) {
-      logError(e, "Failed to fetch user avatar via DBus");
+      this._logAvatarError(e);
     }
 
     return null;
+  }
+
+  // Failures are not cached (so a later avatar is still picked up), but each distinct error is logged once
+  _logAvatarError(e) {
+    if (e.message === this._lastAvatarError)
+      return;
+    this._lastAvatarError = e.message;
+    logError(e, "Failed to fetch user avatar via DBus");
   }
 
   _updateText() {
@@ -155,20 +170,18 @@ export class UsernameIndicator extends SystemIndicator {
   _applyPositionAvatarPicture() {
     const positionAvatarPicture = this._settings.get_string("avatar-picture-position");
     if (this._avatarPicture == null) {
-      if (positionAvatarPicture === "hidden" || this._getUserAvatarFilename() == null)
+      const filename = positionAvatarPicture === "hidden" ? null : this._getUserAvatarFilename();
+      if (filename == null)
         return;
 
-      const AVATAR_PICTURE_SIZE = Main.panel.height - 10;
-      this._avatarPicture = this._createCircularStIcon(this._getUserAvatarFilename(),
-                                                       AVATAR_PICTURE_SIZE);
+      const avatarPictureSize = Main.panel.height - AVATAR_PICTURE_BORDER_PX;
+      this._avatarPicture = this._createCircularStIcon(filename, avatarPictureSize);
       this.add_child(this._avatarPicture);  // We will reposition this below
+      this._watchAvatarFile(filename);
     }
 
-    const AVATAR_PICTURE_SPACING_PX = 8;
     if (positionAvatarPicture === "hidden") {
-      if (this._avatarPicture.get_parent() === this) {
-        this._avatarPicture.hide();
-      }
+      this._avatarPicture.hide();
     } else if (positionAvatarPicture === "before") {
       this.set_child_below_sibling(this._avatarPicture, this._usernameLabel);
       this._avatarPicture.set_style(`margin-left: 0px; margin-right: ${AVATAR_PICTURE_SPACING_PX}px;`)
@@ -180,6 +193,32 @@ export class UsernameIndicator extends SystemIndicator {
     }
   }
 
+  _watchAvatarFile(path) {
+    this._avatarMonitor = Gio.File.new_for_path(path).monitor_file(Gio.FileMonitorFlags.NONE, null);
+    this._avatarMonitorId = this._avatarMonitor.connect("changed", (_monitor, _file, _other, event) => {
+      if (event === Gio.FileMonitorEvent.CHANGES_DONE_HINT ||
+          event === Gio.FileMonitorEvent.CREATED ||
+          event === Gio.FileMonitorEvent.RENAMED)
+        this._reloadAvatarPicture();
+    });
+  }
+
+  _unwatchAvatarFile() {
+    if (this._avatarMonitor) {
+      this._avatarMonitor.disconnect(this._avatarMonitorId);
+      this._avatarMonitor.cancel();
+      this._avatarMonitor = null;
+      this._avatarMonitorId = 0;
+    }
+  }
+
+  _reloadAvatarPicture() {
+    this._unwatchAvatarFile();
+    this._avatarPicture?.destroy();
+    this._avatarPicture = null;
+    this._applyPositionAvatarPicture();
+  }
+
   _createCircularPixbuf(path, size_px) {
     const src = GdkPixbuf.Pixbuf.new_from_file(path);
 
@@ -188,19 +227,13 @@ export class UsernameIndicator extends SystemIndicator {
     const offsetX = Math.floor((src.get_width() - side) / 2);
     const offsetY = Math.floor((src.get_height() - side) / 2);
 
-    const square = GdkPixbuf.Pixbuf.new(
-        GdkPixbuf.Colorspace.RGB,
-        false,
-        8,   // bits_per_sample
-        side,
-        side
-    );
+    // new_subpixbuf keeps the source format, including alpha; copy_area into an RGB buffer fails for RGBA sources
+    const square = src.new_subpixbuf(offsetX, offsetY, side, side);
 
-    square.fill(0x00000000);
-    src.copy_area(offsetX, offsetY, side, side, square, 0, 0);
-
-    // Scale to target size and add alpha channel, if not present
-    const scaled = square.scale_simple(size_px, size_px, GdkPixbuf.InterpType.BILINEAR).add_alpha(false, 0, 0, 0);
+    // Scale to target size and add alpha channel, only if not present
+    let scaled = square.scale_simple(size_px, size_px, GdkPixbuf.InterpType.BILINEAR);
+    if (!scaled.get_has_alpha())
+      scaled = scaled.add_alpha(false, 0, 0, 0);
 
     // Use the alpha channel to create a circular mask
     // CAUTION: get_pixels() returns a copy, so mutate it and build a new pixbuf from the bytes
@@ -212,8 +245,6 @@ export class UsernameIndicator extends SystemIndicator {
     const rSq = r * r;
     const rInnerBorderSq = (r - 1) * (r - 1);
     const cxy = (size_px - 1) / 2;
-
-    const ALPHA_CHANNEL_IDX = 3;
 
     for (let y = 0; y < size_px; y++) {
       for (let x = 0; x < size_px; x++) {
@@ -263,6 +294,7 @@ export class UsernameIndicator extends SystemIndicator {
   }
 
   destroy() {
+    this._unwatchAvatarFile();
     if (this._signalIds) {
       for (const id of this._signalIds) {
         this._settings.disconnect(id);
