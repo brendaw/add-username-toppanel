@@ -188,19 +188,13 @@ export class UsernameIndicator extends SystemIndicator {
     const offsetX = Math.floor((src.get_width() - side) / 2);
     const offsetY = Math.floor((src.get_height() - side) / 2);
 
-    const square = GdkPixbuf.Pixbuf.new(
-        GdkPixbuf.Colorspace.RGB,
-        false,
-        8,   // bits_per_sample
-        side,
-        side
-    );
+    // new_subpixbuf keeps the source format, including alpha; copy_area into an RGB buffer fails for RGBA sources
+    const square = src.new_subpixbuf(offsetX, offsetY, side, side);
 
-    square.fill(0x00000000);
-    src.copy_area(offsetX, offsetY, side, side, square, 0, 0);
-
-    // Scale to target size and add alpha channel, if not present
-    const scaled = square.scale_simple(size_px, size_px, GdkPixbuf.InterpType.BILINEAR).add_alpha(false, 0, 0, 0);
+    // Scale to target size and add alpha channel, only if not present
+    let scaled = square.scale_simple(size_px, size_px, GdkPixbuf.InterpType.BILINEAR);
+    if (!scaled.get_has_alpha())
+      scaled = scaled.add_alpha(false, 0, 0, 0);
 
     // Use the alpha channel to create a circular mask
     // CAUTION: get_pixels() returns a copy, so mutate it and build a new pixbuf from the bytes
