@@ -34,6 +34,24 @@ and this project adheres (in parts) to [Semantic Versioning](https://semver.org/
 - remove hardcoded spaces from username label text
 
 
+
+## [4.1.0](https://github.com/brendaw/add-username-toppanel/releases/tag/v4.1.0) - 2026-10-21
+
+### Added
+
+- add GNOME Shell 51 to supported versions (#37)
+- Adds the ability to show avatar image associated with the user account. (#35)
+
+### Fixed
+
+- avatar picture rendering, live reload and cleanup (#38)
+- declare settings-schema in metadata.json to simplify getSettings calls
+
+### Notes
+
+- After updating, log out and log in again: GNOME Shell on Wayland keeps the previous extension code loaded until the next session.
+- The spacing (`margin-left` / `margin-right`) and font size now apply to the whole indicator, including the avatar, instead of only the username text. Nothing changes if the avatar is hidden (the default).
+
 ## [4.0.0](https://github.com/brendaw/add-username-toppanel/releases/tag/v4.0.0) - 2026-09-04
 
 ### Added

@@ -12,5 +12,5 @@
   "settings-schema": "org.gnome.shell.extensions.add-username-toppanel",
   "url": "https://github.com/brendaw/add-username-toppanel",
   "uuid": "add-username-toppanel@brendaw.com",
-  "version": 23
+  "version": 24
 }
