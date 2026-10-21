@@ -6,6 +6,10 @@ import GdkPixbuf from "gi://GdkPixbuf";
 import { SystemIndicator } from "resource:///org/gnome/shell/ui/quickSettings.js";
 import * as Main from "resource:///org/gnome/shell/ui/main.js";
 
+const AVATAR_PICTURE_SPACING_PX = 8;
+const AVATAR_PICTURE_BORDER_PX = 10; // avatar size = panel height minus this
+const ALPHA_CHANNEL_IDX = 3;
+
 export class UsernameIndicator extends SystemIndicator {
   _init(settings) {
     super._init();
@@ -22,6 +26,7 @@ export class UsernameIndicator extends SystemIndicator {
     this._avatarPicture = null;
     this._avatarMonitor = null;
     this._avatarMonitorId = 0;
+    this._lastAvatarError = null;
     this._applyStyle();
     this.add_child(this._usernameLabel);
 
@@ -99,17 +104,25 @@ export class UsernameIndicator extends SystemIndicator {
       const path = iconFileVariant.deep_unpack();
 
       if (path && GLib.file_test(path, GLib.FileTest.EXISTS | GLib.FileTest.IS_REGULAR)) {
+        this._lastAvatarError = null;
         return path;
       }
       else {
-        logError(new Error("User avatar file does not exist or is not a regular file"),
-                 "Failed to fetch user avatar via DBus");
+        this._logAvatarError(new Error("User avatar file does not exist or is not a regular file"));
       }
     } catch (e) {
-      logError(e, "Failed to fetch user avatar via DBus");
+      this._logAvatarError(e);
     }
 
     return null;
+  }
+
+  // Failures are not cached (so a later avatar is still picked up), but each distinct error is logged once
+  _logAvatarError(e) {
+    if (e.message === this._lastAvatarError)
+      return;
+    this._lastAvatarError = e.message;
+    logError(e, "Failed to fetch user avatar via DBus");
   }
 
   _updateText() {
@@ -161,17 +174,14 @@ export class UsernameIndicator extends SystemIndicator {
       if (filename == null)
         return;
 
-      const AVATAR_PICTURE_SIZE = Main.panel.height - 10;
-      this._avatarPicture = this._createCircularStIcon(filename, AVATAR_PICTURE_SIZE);
+      const avatarPictureSize = Main.panel.height - AVATAR_PICTURE_BORDER_PX;
+      this._avatarPicture = this._createCircularStIcon(filename, avatarPictureSize);
       this.add_child(this._avatarPicture);  // We will reposition this below
       this._watchAvatarFile(filename);
     }
 
-    const AVATAR_PICTURE_SPACING_PX = 8;
     if (positionAvatarPicture === "hidden") {
-      if (this._avatarPicture.get_parent() === this) {
-        this._avatarPicture.hide();
-      }
+      this._avatarPicture.hide();
     } else if (positionAvatarPicture === "before") {
       this.set_child_below_sibling(this._avatarPicture, this._usernameLabel);
       this._avatarPicture.set_style(`margin-left: 0px; margin-right: ${AVATAR_PICTURE_SPACING_PX}px;`)
@@ -235,8 +245,6 @@ export class UsernameIndicator extends SystemIndicator {
     const rSq = r * r;
     const rInnerBorderSq = (r - 1) * (r - 1);
     const cxy = (size_px - 1) / 2;
-
-    const ALPHA_CHANNEL_IDX = 3;
 
     for (let y = 0; y < size_px; y++) {
       for (let x = 0; x < size_px; x++) {
