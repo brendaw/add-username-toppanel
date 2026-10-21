@@ -24,7 +24,7 @@ Visit the [project website](https://autp.brendaw.net) for more details.
 - Settings apply in real time — no GNOME Shell restart needed
 - Reset to last saved settings or to defaults, with a confirmation dialog
 - Settings panel accessible from GNOME Extensions preferences
-- Compatible with GNOME Shell 45 to 50
+- Compatible with GNOME Shell 45 to 51
 - Lightweight with no external dependencies
 
 ![Preferences panel](assets/preferences-panel.png)
@@ -79,7 +79,7 @@ Requires [GNOME Shell Integration](https://wiki.gnome.org/Projects/GnomeShellInt
 
 ## Compatibility
 
-This extension supports GNOME Shell 45 to 50.
+This extension supports GNOME Shell 45 to 51.
 
 > For GNOME Shell 3.12 to 44, use a [legacy release](https://github.com/brendaw/add-username-toppanel/releases) (v2.x or earlier).
 
